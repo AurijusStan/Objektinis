@@ -23,23 +23,64 @@ void sort(duom mokinys [], int k){
 }
 
 void input(duom mokinys[], int j){
-    // freopen("duota.txt", "r", stdin);
-
     cout<<"Irasykite varda"<<endl;
     cin>>mokinys[j].vard;
     cout<<"Irasykite pavarde"<<endl;
     cin>>mokinys[j].pav;
-    cout<<"Irasykite namu darbu skaiciu"<<endl;
-    cin>>mokinys[j].n;
+    while(true){
+        cout<<"Irasykite namu darbu skaiciu"<<endl;
+        if(cin>>mokinys[j].n) break;
+        else{
+            cin.clear();
+            cin.ignore();
+            cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+    }
     if(mokinys[j].n!=0){
         cout<<"Irasykite nd rezultatus po kiekvieno spaudziant enter"<<endl;
         for(int i=0; i<mokinys[j].n; i++){
-            cin>>mokinys[j].ndrez[i];
+            while(true){
+                if(cin>>mokinys[j].ndrez[i]) break;
+                else{
+                    cin.clear();
+                    cin.ignore();
+                    cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
+                }
+            }
+            while(mokinys[j].ndrez[i]<0||mokinys[j].ndrez[i]>10){
+                cout<<"Ivertinimas turi buti desimtbaleje sistemoje, pabandykite dar karta"<<endl;
+                while(true){
+                    if(cin>>mokinys[j].ndrez[i]) break;
+                    else{
+                        cin.clear();
+                        cin.ignore();
+                        cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
+                    }
+                }
+            }
         }
         sort(mokinys, j);
     }
-    cout<<"Irasykite egzamino rezultata"<<endl;
-    cin>>mokinys[j].egzrez;
+    while(true){
+        cout<<"Irasykite egzamino rezultata"<<endl;
+        if(cin>>mokinys[j].egzrez) break;
+        else{
+            cin.clear();
+            cin.ignore();
+            cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+    }
+    while(mokinys[j].egzrez<0||mokinys[j].egzrez>10){
+        cout<<"Ivertinimas turi buti desimtbaleje sistemoje, pabandykite dar karta"<<endl;
+        while(true){
+            if(cin>>mokinys[j].egzrez) break;
+            else{
+                cin.clear();
+                cin.ignore();
+                cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
+            }
+        }
+    }
 
     return;
 }
@@ -67,8 +108,15 @@ void calc(duom mokinys[], int j){
 int main(){    
     int x;
 
-    cout<<"Irasykite mokiniu skaiciu"<<endl;
-    cin>>x;
+    while(true){
+        cout<<"Irasykite mokiniu skaiciu"<<endl;
+        if(cin>>x) break;
+        else{
+            cin.clear();
+            cin.ignore();
+            cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+    }
 
     duom mokinys[x+1];
 
