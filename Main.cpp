@@ -125,7 +125,7 @@ int main(){
     }
 
     cout<<setw(17)<<left<<"Vardas"<<setw(17)<<left<<"Pavarde"<<setw(17)<<left<<"Galutinis (Vid.)"<<setw(17)<<left<<"Galutinis (Med.)"<<endl;
-    cout<<"---------------------------------------------------------------"<<endl;
+    cout<<"-------------------------------------------------------------------------"<<endl;
 
     for(int i=0; i<x; i++){
         calc(mokinys, i);
