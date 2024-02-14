@@ -18,7 +18,7 @@ struct duom{
 vector<duom> mok;
 
 void sort(int k){
-    for(int i=0; i<mok[k].n; i++){
+    for(int i=0; i<mok[k].n+1; i++){
         for(int j=i+1; j<mok[k].n+1; j++){
             if(mok[k].ndrez[i]>mok[k].ndrez[j]) swap(mok[k].ndrez[i], mok[k].ndrez[j]);
         }
@@ -54,6 +54,11 @@ void input(int &kiek){
     }
 
     sort(kiek);
+
+    for(int i=0; i<mok[kiek].n+2; i++){
+        cout<<mok[kiek].ndrez[i]<<" ";
+    }
+    cout<<endl;
 
     while(true){
         cout<<"Irasykite egzamino rezultata"<<endl;
@@ -103,14 +108,16 @@ void calc(int j){
         }
         sum=sum/(mok[j].n);
         if((mok[j].n)%2==0){
-            med=(mok[j].ndrez[mok[j].n/2]+mok[j].ndrez[(mok[j].n/2)+1])/2;
+            med=mok[j].ndrez[(mok[j].n/2)-1]+mok[j].ndrez[(mok[j].n/2)];
+            med/=2;
         }
         else{
-            med=mok[j].ndrez[(mok[j].n+1)/2];
+            med=mok[j].ndrez[((mok[j].n+1)/2)-1];
         }
+        cout<<med<<"<-------mediana"<<endl;
     }
     egz=mok[j].egzrez;
-    cout<<setw(17)<<left<<mok[j].vard<<setw(17)<<left<<mok[j].pav<<setw(17)<<left<<setprecision(3)<<(sum*0.4+egz*0.6)<<setw(17)<<left<<setprecision(3)<<(med*0.4+egz*0.6)<<endl;
+    cout<<setw(17)<<left<<mok[j].vard<<setw(17)<<left<<mok[j].pav<<setw(17)<<left<<fixed<<setprecision(2)<<(sum*0.4+egz*0.6)<<setw(17)<<left<<fixed<<setprecision(2)<<(med*0.4+egz*0.6)<<endl;
 }
 
 int main(){    
@@ -125,6 +132,5 @@ int main(){
         calc(i);
     }
     
-
     return 0;
 }
