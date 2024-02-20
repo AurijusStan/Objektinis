@@ -21,11 +21,35 @@ struct duom{
 vector<duom> mok;
 
 void sort(int k){
-    for(int i=0; i<mok[k].n+1; i++){
+    for(int i=0; i<mok[k].n; i++){
         for(int j=i+1; j<mok[k].n+1; j++){
             if(mok[k].ndrez[i]>mok[k].ndrez[j]) swap(mok[k].ndrez[i], mok[k].ndrez[j]);
         }
     }
+}
+
+void calc(int j){
+    mok[j].n++;
+    double sum=0;
+    double egz=0;
+    double med=0;
+    if(mok[j].n!=0){
+        for(int i=0; i<(mok[j].n); i++){
+            sum+=mok[j].ndrez[i];
+        }
+        sum=sum/(mok[j].n);
+        if((mok[j].n)%2==0){
+            med=mok[j].ndrez[(mok[j].n/2)-1]+mok[j].ndrez[(mok[j].n/2)];
+            med/=2;
+        }
+        else{
+            med=mok[j].ndrez[((mok[j].n+1)/2)-1];
+        }
+    }
+    egz=mok[j].egzrez;
+
+    mok[j].galvid=sum*0.4+egz*0.6;
+    mok[j].galmed=med*0.4+egz*0.6;
 }
 
 void isfailo(){
@@ -75,9 +99,10 @@ void isfailo(){
     }
 
     int x;
+    int t;
 
     while(true){
-        cout<<"Rusiuoti pagal: 1-varda; 2-pavarde; 3-galutini (vid); 4-galutini (med)"<<endl;
+        cout<<"Rusiuoti pagal: 1-varda; 2-pavarde; 3-galutini(vid); 4-galutini(med)"<<endl;
         if(cin>>x) break;
         else{
             cin.clear();
@@ -85,10 +110,31 @@ void isfailo(){
             cout<<"Klaidingai ivesti duomenys"<<endl;
         }
     }
-    while(x<1||x>5){
+    while(x<1||x>4){
         cout<<"Pasirinkite viena is duotu variantu"<<endl;
         while(true){
             if(cin>>x) break;
+            else{
+                cin.clear();
+                cin.ignore();
+                cout<<"Klaidingai ivesti duomenys"<<endl;
+            }
+        }
+    }
+
+    while(true){
+        cout<<"Tvarka: 1-didejimo; 2-mazejimo"<<endl;
+        if(cin>>t) break;
+        else{
+            cin.clear();
+            cin.ignore();
+            cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+    }
+    while(t<1||t>2){
+        cout<<"Pasirinkite viena is duotu variantu"<<endl;
+        while(true){
+            if(cin>>t) break;
             else{
                 cin.clear();
                 cin.ignore();
@@ -114,8 +160,6 @@ void isfailo(){
 
         getline(cin, vardas, ' ');
         mok[i].vard=vardas;
-    
-        cout<<mok[i].vard<<" "<<mok[i].pav;
 
         for(int j=0; j<ndsk; j++){
             int a;
@@ -125,14 +169,62 @@ void isfailo(){
 
         cin>>mok[i].egzrez;
 
-        mok[i].n=ndsk;
+        mok[i].n=ndsk-1;
+
+        sort(i);
 
         calc(i);
 
         cin.ignore(255, '\n');
     }
 
+    if(x==1){
+        for(int i=0; i<moksk; i++){
+            for(int j=i+1; j<moksk; j++){
+                if(t==1){
+                    if(mok[i].vard>mok[j].vard) swap(mok[i], mok[j]);
+                }
+                else if(mok[i].vard<mok[j].vard) swap(mok[i], mok[j]);
+            }
+        }
+    }
+    if(x==2){
+        for(int i=0; i<moksk; i++){
+            for(int j=i+1; j<moksk; j++){
+                if(t==1){
+                    if(mok[i].pav>mok[j].pav) swap(mok[i], mok[j]);
+                }
+                else if(mok[i].pav<mok[j].pav) swap(mok[i], mok[j]);
+            }
+        }
+    }
+    if(x==3){
+        for(int i=0; i<moksk; i++){
+            for(int j=i+1; j<moksk; j++){
+                if(t==1){
+                    if(mok[i].galvid>mok[j].galvid) swap(mok[i], mok[j]);
+                }
+                else if(mok[i].galvid<mok[j].galvid) swap(mok[i], mok[j]);
+            }
+        }
+    }
+    if(x==4){
+        for(int i=0; i<moksk; i++){
+            for(int j=i+1; j<moksk; j++){
+                if(t==1){
+                    if(mok[i].galmed>mok[j].galmed) swap(mok[i], mok[j]);
+                }
+                else if(mok[i].galmed<mok[j].galmed) swap(mok[i], mok[j]);
+            }
+        }
+    }
     
+    cout<<setw(19)<<left<<"Vardas"<<setw(19)<<left<<"Pavarde"<<setw(19)<<left<<"Galutinis (Vid.)"<<setw(19)<<left<<"Galutinis (Med.)"<<endl;
+    cout<<"-------------------------------------------------------------------------"<<endl;
+
+    for(int i=0; i<moksk; i++){
+        cout<<setw(19)<<left<<mok[i].vard<<setw(19)<<left<<mok[i].pav<<setw(19)<<left<<setprecision(2)<<mok[i].galvid<<setw(19)<<left<<setprecision(2)<<mok[i].galmed<<endl;
+    }
 
     exit(0);
 }
@@ -283,30 +375,6 @@ void input(int &kiek){
     if(a==1) input(kiek);
 
     return;
-}
-
-void calc(int j){
-    mok[j].n++;
-    double sum=0;
-    double egz=0;
-    double med=0;
-    if(mok[j].n!=0){
-        for(int i=0; i<(mok[j].n); i++){
-            sum+=mok[j].ndrez[i];
-        }
-        sum=sum/(mok[j].n);
-        if((mok[j].n)%2==0){
-            med=mok[j].ndrez[(mok[j].n/2)-1]+mok[j].ndrez[(mok[j].n/2)];
-            med/=2;
-        }
-        else{
-            med=mok[j].ndrez[((mok[j].n+1)/2)-1];
-        }
-    }
-    egz=mok[j].egzrez;
-
-    mok[j].galvid=sum*0.4+egz*0.6;
-    mok[j].galmed=med*0.4+egz*0.6;
 }
 
 int main(){    
