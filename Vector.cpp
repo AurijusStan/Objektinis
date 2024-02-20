@@ -3,6 +3,7 @@
 #include <numeric>
 #include <vector>
 #include <random>
+#include <string>
 
 using namespace std;
 using std::setw;
@@ -14,6 +15,7 @@ struct duom{
     int n=-1;
     vector<int> ndrez;
     int egzrez;
+    double galvid, galmed;
 };
 
 vector<duom> mok;
@@ -26,14 +28,56 @@ void sort(int k){
     }
 }
 
-void input(int &kiek){
+void isfailo(){
+    int moksk;
+    int ndsk;
 
-    srand(time(nullptr));
+    cout<<"Kiek asmenu nuskaityti nuo duoto failo?"<<endl;
+    while(true){
+        if(cin>>moksk) break;
+        else{
+            cin.clear();
+            cin.ignore();
+            cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+    }
+    while(moksk<0){
+        cout<<"Negali buti neigiamas skaicius mokiniu"<<endl;
+        while(true){
+            if(cin>>moksk) break;
+            else{
+                cin.clear();
+                cin.ignore();
+                cout<<"Klaidingai ivesti duomenys, iveskite teigiama skaiciu"<<endl;
+            }
+        }
+    }
+
+    cout<<"Kiek namu darbu buvo skirta asmenims?"<<endl;
+    while(true){
+        if(cin>>ndsk) break;
+        else{
+            cin.clear();
+            cin.ignore();
+            cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+    }
+    while(ndsk<0){
+        cout<<"Negali buti neigiamas skaicius namu darbu"<<endl;
+        while(true){
+            if(cin>>ndsk) break;
+            else{
+                cin.clear();
+                cin.ignore();
+                cout<<"Klaidingai ivesti duomenys, iveskite teigiama skaiciu"<<endl;
+            }
+        }
+    }
 
     int x;
 
     while(true){
-        cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 4-baigti darba"<<endl;
+        cout<<"Rusiuoti pagal: 1-varda; 2-pavarde; 3-galutini (vid); 4-galutini (med)"<<endl;
         if(cin>>x) break;
         else{
             cin.clear();
@@ -41,7 +85,7 @@ void input(int &kiek){
             cout<<"Klaidingai ivesti duomenys"<<endl;
         }
     }
-    while(x<1||x>4){
+    while(x<1||x>5){
         cout<<"Pasirinkite viena is duotu variantu"<<endl;
         while(true){
             if(cin>>x) break;
@@ -53,7 +97,103 @@ void input(int &kiek){
         }
     }
 
-    if(x==4) exit(0);
+    freopen("Kursiokai.txt", "r", stdin);
+
+    string temp;
+
+    getline(cin, temp);
+
+    for(int i=0; i<moksk; i++){
+        string vardas;
+        string pavarde;
+        mok.push_back(duom());
+
+        getline(cin, pavarde, ' ');
+        mok[i].pav=pavarde;
+        cin.ignore(18-pavarde.size());
+
+        getline(cin, vardas, ' ');
+        mok[i].vard=vardas;
+    
+        cout<<mok[i].vard<<" "<<mok[i].pav;
+
+        for(int j=0; j<ndsk; j++){
+            int a;
+            cin>>a;
+            mok[i].ndrez.push_back(a);
+        }
+
+        cin>>mok[i].egzrez;
+
+        mok[i].n=ndsk;
+
+        calc(i);
+
+        cin.ignore(255, '\n');
+    }
+
+    
+
+    exit(0);
+}
+
+void input(int &kiek){
+
+    srand(time(nullptr));
+
+    int x;
+
+    if(kiek==-1){
+        while(true){
+        cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 4-skaityti duomenis is failo kursiokai.txt; 5-baigti darba"<<endl;
+        if(cin>>x) break;
+        else{
+            cin.clear();
+            cin.ignore();
+            cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+        }
+        while(x<1||x>5){
+            cout<<"Pasirinkite viena is duotu variantu"<<endl;
+            while(true){
+                if(cin>>x) break;
+                else{
+                    cin.clear();
+                    cin.ignore();
+                    cout<<"Klaidingai ivesti duomenys"<<endl;
+                }
+            }
+        }
+    }
+    else{
+        while(true){
+        cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 5-baigti darba"<<endl;
+        if(cin>>x) break;
+        else{
+            cin.clear();
+            cin.ignore();
+            cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+        }
+        while(x<1||x>5||x==4){
+            cout<<"Pasirinkite viena is duotu variantu"<<endl;
+            while(true){
+                if(cin>>x) break;
+                else{
+                    cin.clear();
+                    cin.ignore();
+                    cout<<"Klaidingai ivesti duomenys"<<endl;
+                }
+            }
+        }
+    }
+
+    if(x==5) exit(0);
+
+    if(x==4){
+        isfailo();
+        return;
+    }
 
     mok.push_back(duom());
     kiek++;
@@ -164,7 +304,9 @@ void calc(int j){
         }
     }
     egz=mok[j].egzrez;
-    cout<<setw(19)<<left<<mok[j].vard<<setw(19)<<left<<mok[j].pav<<setw(19)<<left<<setprecision(2)<<(sum*0.4+egz*0.6)<<setw(19)<<left<<setprecision(2)<<(med*0.4+egz*0.6)<<endl;
+
+    mok[j].galvid=sum*0.4+egz*0.6;
+    mok[j].galmed=med*0.4+egz*0.6;
 }
 
 int main(){    
@@ -177,6 +319,7 @@ int main(){
 
     for(int i=0; i<kiek+1; i++){
         calc(i);
+        cout<<setw(19)<<left<<mok[i].vard<<setw(19)<<left<<mok[i].pav<<setw(19)<<left<<setprecision(2)<<mok[i].galvid<<setw(19)<<left<<setprecision(2)<<mok[i].galmed<<endl;
     }
     
     return 0;
