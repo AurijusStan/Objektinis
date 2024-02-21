@@ -54,7 +54,7 @@ void calc(int j){
 
 void isfailo(){
     int moksk;
-    int ndsk;
+    int ndsk=0;
 
     cout<<"Kiek asmenu nuskaityti nuo duoto failo?"<<endl;
     while(true){
@@ -77,26 +77,26 @@ void isfailo(){
         }
     }
 
-    cout<<"Kiek namu darbu buvo skirta asmenims?"<<endl;
-    while(true){
-        if(cin>>ndsk) break;
-        else{
-            cin.clear();
-            cin.ignore();
-            cout<<"Klaidingai ivesti duomenys"<<endl;
-        }
-    }
-    while(ndsk<0){
-        cout<<"Negali buti neigiamas skaicius namu darbu"<<endl;
-        while(true){
-            if(cin>>ndsk) break;
-            else{
-                cin.clear();
-                cin.ignore();
-                cout<<"Klaidingai ivesti duomenys, iveskite teigiama skaiciu"<<endl;
-            }
-        }
-    }
+    // cout<<"Kiek namu darbu buvo skirta asmenims?"<<endl;
+    // while(true){
+    //     if(cin>>ndsk) break;
+    //     else{
+    //         cin.clear();
+    //         cin.ignore();
+    //         cout<<"Klaidingai ivesti duomenys"<<endl;
+    //     }
+    // }
+    // while(ndsk<0){
+    //     cout<<"Negali buti neigiamas skaicius namu darbu"<<endl;
+    //     while(true){
+    //         if(cin>>ndsk) break;
+    //         else{
+    //             cin.clear();
+    //             cin.ignore();
+    //             cout<<"Klaidingai ivesti duomenys, iveskite teigiama skaiciu"<<endl;
+    //         }
+    //     }
+    // }
 
     int x;
     int t;
@@ -143,23 +143,53 @@ void isfailo(){
         }
     }
 
-    freopen("Kursiokai.txt", "r", stdin);
+    freopen("studentai10000.txt", "r", stdin);
 
     string temp;
 
-    getline(cin, temp);
+    getline(cin, temp, ' ');
+
+    while(true){
+        char c;
+        cin>>c;
+        if(c!=' '){
+            getline(cin, temp, ' ');
+            break;
+        }
+    }
+
+    while(true){
+        char c;
+        cin>>c;
+        if(c!=' '){
+            if(c=='E'){
+                getline(cin, temp);
+                break;
+            }
+            else{
+                ndsk++;
+                getline(cin, temp, ' ');
+            }
+        }
+    }
+
 
     for(int i=0; i<moksk; i++){
         string vardas;
-        string pavarde;
         mok.push_back(duom());
 
-        getline(cin, pavarde, ' ');
-        mok[i].pav=pavarde;
-        cin.ignore(18-pavarde.size());
-
         getline(cin, vardas, ' ');
-        mok[i].vard=vardas;
+        mok[i].pav=vardas;
+
+        while(true){
+            char c;
+            cin>>c;
+            if(c!=' '){
+                getline(cin, vardas, ' ');
+                mok[i].vard=c+vardas;
+                break;
+            }
+        }
 
         for(int j=0; j<ndsk; j++){
             int a;
