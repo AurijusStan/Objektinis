@@ -1,59 +1,91 @@
-#include <iostream>
-#include <iomanip>
-#include <numeric>
-#include <vector>
-#include <random>
-#include <string>
+// #include <iostream>
+// #include <iomanip>
+// #include <numeric>
+// #include <vector>
+// #include <random>
+// #include <string>
+// #include <chrono>
+
+#include <bits/stdc++.h>
 
 using namespace std;
+using namespace std::chrono;
 using std::setw;
 using std::left;
 
 struct duom{
     string vard;
     string pav;
-    int n=-1;
     vector<int> ndrez;
     int egzrez;
     double galvid, galmed;
 };
 
-vector<duom> mok;
+bool sort1(const duom &a, const duom &b){
+    return(a.vard<b.vard);
+}
+bool sort2(const duom &a, const duom &b){
+    return(a.pav<b.pav);
+}
+bool sort3(const duom &a, const duom &b){
+    return(a.galvid<b.galvid);
+}
+bool sort4(const duom &a, const duom &b){
+    return(a.galmed<b.galmed);
+}
+bool sort1u(const duom &a, const duom &b){
+    return(a.vard>b.vard);
+}
+bool sort2u(const duom &a, const duom &b){
+    return(a.pav>b.pav);
+}
+bool sort3u(const duom &a, const duom &b){
+    return(a.galvid>b.galvid);
+}
+bool sort4u(const duom &a, const duom &b){
+    return(a.galmed>b.galmed);
+}
 
-void sort(int k){
-    for(int i=0; i<mok[k].n; i++){
-        for(int j=i+1; j<mok[k].n+1; j++){
-            if(mok[k].ndrez[i]>mok[k].ndrez[j]) swap(mok[k].ndrez[i], mok[k].ndrez[j]);
-        }
+void rusiuoti(int x, int t, vector<duom>& mok){
+    if(t==1){
+        if(x==1) sort(mok.begin(), mok.end(), sort1);
+        if(x==2) sort(mok.begin(), mok.end(), sort2);
+        if(x==3) sort(mok.begin(), mok.end(), sort3);
+        if(x==4) sort(mok.begin(), mok.end(), sort4);
+    }
+    else{
+        if(x==1) sort(mok.begin(), mok.end(), sort1u);
+        if(x==2) sort(mok.begin(), mok.end(), sort2u);
+        if(x==3) sort(mok.begin(), mok.end(), sort3u);
+        if(x==4) sort(mok.begin(), mok.end(), sort4u);
     }
 }
 
-void calc(int j){
-    mok[j].n++;
-    double sum=0;
+void calc(duom &m){
+    int a=accumulate(m.ndrez.begin(), m.ndrez.end(), 0);
+    double sum=a;
     double egz=0;
     double med=0;
-    if(mok[j].n!=0){
-        for(int i=0; i<(mok[j].n); i++){
-            sum+=mok[j].ndrez[i];
-        }
-        sum=sum/(mok[j].n);
-        if((mok[j].n)%2==0){
-            med=mok[j].ndrez[(mok[j].n/2)-1]+mok[j].ndrez[(mok[j].n/2)];
+
+    sort(m.ndrez.begin(), m.ndrez.end());
+
+    if(m.ndrez.size()!=0){
+        sum=sum/(m.ndrez.size());
+        if((m.ndrez.size())%2==0){
+            med=m.ndrez[(m.ndrez.size()/2)-1]+m.ndrez[(m.ndrez.size()/2)];
             med/=2;
         }
         else{
-            med=mok[j].ndrez[((mok[j].n+1)/2)-1];
+            med=m.ndrez[((m.ndrez.size()+1)/2)-1];
         }
     }
-    egz=mok[j].egzrez;
+    egz=m.egzrez;
 
-    mok[j].galvid=sum*0.4+egz*0.6;
-    mok[j].galmed=med*0.4+egz*0.6;
+    m.galvid=sum*0.4+egz*0.6;
+    m.galmed=med*0.4+egz*0.6;
 }
 
-void isfailo(){
-    int moksk;
+double isfailo(int &moksk, vector<duom> &mok){
     int ndsk=0;
 
     cout<<"Kiek asmenu nuskaityti nuo duoto failo?"<<endl;
@@ -76,27 +108,6 @@ void isfailo(){
             }
         }
     }
-
-    // cout<<"Kiek namu darbu buvo skirta asmenims?"<<endl;
-    // while(true){
-    //     if(cin>>ndsk) break;
-    //     else{
-    //         cin.clear();
-    //         cin.ignore();
-    //         cout<<"Klaidingai ivesti duomenys"<<endl;
-    //     }
-    // }
-    // while(ndsk<0){
-    //     cout<<"Negali buti neigiamas skaicius namu darbu"<<endl;
-    //     while(true){
-    //         if(cin>>ndsk) break;
-    //         else{
-    //             cin.clear();
-    //             cin.ignore();
-    //             cout<<"Klaidingai ivesti duomenys, iveskite teigiama skaiciu"<<endl;
-    //         }
-    //     }
-    // }
 
     int x;
     int t;
@@ -147,125 +158,60 @@ void isfailo(){
 
     string temp;
 
-    getline(cin, temp, ' ');
+    auto start = high_resolution_clock::now();
+
+    cin>>temp;
+    cin>>temp;
 
     while(true){
-        char c;
-        cin>>c;
-        if(c!=' '){
-            getline(cin, temp, ' ');
+        cin>>temp;
+        if(temp.back()>='0'&&temp.back()<='9'){
+            ndsk++;
+        }
+        else{
+            getline(cin, temp);
             break;
         }
     }
 
-    while(true){
-        char c;
-        cin>>c;
-        if(c!=' '){
-            if(c=='E'){
-                getline(cin, temp);
-                break;
-            }
-            else{
-                ndsk++;
-                getline(cin, temp, ' ');
-            }
-        }
-    }
-
-
     for(int i=0; i<moksk; i++){
+        duom m;
+
         string vardas;
-        mok.push_back(duom());
 
-        getline(cin, vardas, ' ');
-        mok[i].pav=vardas;
-
-        while(true){
-            char c;
-            cin>>c;
-            if(c!=' '){
-                getline(cin, vardas, ' ');
-                mok[i].vard=c+vardas;
-                break;
-            }
-        }
+        cin>>m.vard>>m.pav;
 
         for(int j=0; j<ndsk; j++){
             int a;
             cin>>a;
-            mok[i].ndrez.push_back(a);
+            m.ndrez.push_back(a);
         }
 
-        cin>>mok[i].egzrez;
+        cin>>m.egzrez;
 
-        mok[i].n=ndsk-1;
+        calc(m);
 
-        sort(i);
-
-        calc(i);
+        mok.push_back(m);
 
         cin.ignore(255, '\n');
     }
 
-    if(x==1){
-        for(int i=0; i<moksk; i++){
-            for(int j=i+1; j<moksk; j++){
-                if(t==1){
-                    if(mok[i].vard>mok[j].vard) swap(mok[i], mok[j]);
-                }
-                else if(mok[i].vard<mok[j].vard) swap(mok[i], mok[j]);
-            }
-        }
-    }
-    if(x==2){
-        for(int i=0; i<moksk; i++){
-            for(int j=i+1; j<moksk; j++){
-                if(t==1){
-                    if(mok[i].pav>mok[j].pav) swap(mok[i], mok[j]);
-                }
-                else if(mok[i].pav<mok[j].pav) swap(mok[i], mok[j]);
-            }
-        }
-    }
-    if(x==3){
-        for(int i=0; i<moksk; i++){
-            for(int j=i+1; j<moksk; j++){
-                if(t==1){
-                    if(mok[i].galvid>mok[j].galvid) swap(mok[i], mok[j]);
-                }
-                else if(mok[i].galvid<mok[j].galvid) swap(mok[i], mok[j]);
-            }
-        }
-    }
-    if(x==4){
-        for(int i=0; i<moksk; i++){
-            for(int j=i+1; j<moksk; j++){
-                if(t==1){
-                    if(mok[i].galmed>mok[j].galmed) swap(mok[i], mok[j]);
-                }
-                else if(mok[i].galmed<mok[j].galmed) swap(mok[i], mok[j]);
-            }
-        }
-    }
+    rusiuoti(x, t, mok);
     
-    cout<<setw(19)<<left<<"Vardas"<<setw(19)<<left<<"Pavarde"<<setw(19)<<left<<"Galutinis (Vid.)"<<setw(19)<<left<<"Galutinis (Med.)"<<endl;
-    cout<<"-------------------------------------------------------------------------"<<endl;
+    auto stop = high_resolution_clock::now();
 
-    for(int i=0; i<moksk; i++){
-        cout<<setw(19)<<left<<mok[i].vard<<setw(19)<<left<<mok[i].pav<<setw(19)<<left<<setprecision(2)<<mok[i].galvid<<setw(19)<<left<<setprecision(2)<<mok[i].galmed<<endl;
-    }
+    auto duration = duration_cast<milliseconds>(stop - start);
 
-    exit(0);
+    return(duration.count());
 }
 
-void input(int &kiek){
+void input(int &moksk, vector<duom>& mok, double &duration){
 
     srand(time(nullptr));
 
     int x;
 
-    if(kiek==-1){
+    if(moksk==-1){
         while(true){
         cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 4-skaityti duomenis is failo kursiokai.txt; 5-baigti darba"<<endl;
         if(cin>>x) break;
@@ -313,112 +259,121 @@ void input(int &kiek){
     if(x==5) exit(0);
 
     if(x==4){
-        isfailo();
+        duration=isfailo(moksk, mok);
         return;
     }
-
-    mok.push_back(duom());
-    kiek++;
-
-    if(x==3){
-        for(int i=0; i<4+rand()%6; i++){
-            if(i==0) mok[kiek].vard+=(char) (65+rand()%25);
-            else mok[kiek].vard+=(char) (97+rand()%25);
-        }
-        for(int i=0; i<4+rand()%8; i++){
-            if(i==0) mok[kiek].pav+=(char) (65+rand()%25);
-            else mok[kiek].pav+=(char) (97+rand()%25);
-        }
-    }
     else{
-        cout<<"Irasykite varda"<<endl;
-        cin>>mok[kiek].vard;
-        cout<<"Irasykite pavarde"<<endl;
-        cin>>mok[kiek].pav;
-    }
-    
-    if(x==2||x==3){
-        for(int i=0; i<1+rand()%10; i++){
-            mok[kiek].ndrez.push_back(rand()%11);
-            mok[kiek].n++;
+        duom m;
+        moksk++;
+
+        if(x==3){
+            for(int i=0; i<4+rand()%6; i++){
+                if(i==0) m.vard+=(char) (65+rand()%25);
+                else m.vard+=(char) (97+rand()%25);
+            }
+            for(int i=0; i<4+rand()%8; i++){
+                if(i==0) m.pav+=(char) (65+rand()%25);
+                else m.pav+=(char) (97+rand()%25);
+            }
         }
-    }
-    else{
-        cout<<"Irasykite nd rezultatus po kiekvieno spaudziant enter, jei baigete parasykite skaiciu netelpanti i desimtbales sistemos intervala"<<endl;
-        while(true){
-            mok[kiek].ndrez.push_back(0);
-            mok[kiek].n++;
+        else{
+            cout<<"Irasykite varda"<<endl;
+            cin>>m.vard;
+            cout<<"Irasykite pavarde"<<endl;
+            cin>>m.pav;
+        }
+        
+        if(x==2||x==3){
+            for(int i=0; i<1+rand()%10; i++){
+                m.ndrez.push_back(rand()%11);
+            }
+        }
+        else{
+            cout<<"Irasykite nd rezultatus po kiekvieno spaudziant enter, jei baigete parasykite skaiciu netelpanti i desimtbales sistemos intervala"<<endl;
             while(true){
-                if(cin>>mok[kiek].ndrez[mok[kiek].n]) break;
+                m.ndrez.push_back(0);
+                while(true){
+                    if(cin>>m.ndrez[m.ndrez.size()]) break;
+                    else{
+                        cin.clear();
+                        cin.ignore();
+                        cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
+                    }
+                }
+                if(m.ndrez[m.ndrez.size()]<0||m.ndrez[m.ndrez.size()]>10){
+                    m.ndrez.pop_back();
+                    break;
+                }
+            }
+        }
+
+        if(x==2||x==3){
+            m.egzrez=rand()%11;
+        }
+        else{
+            while(true){
+                cout<<"Irasykite egzamino rezultata"<<endl;
+                if(cin>>m.egzrez) break;
                 else{
                     cin.clear();
                     cin.ignore();
-                    cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
+                    cout<<"Klaidingai ivesti duomenys"<<endl;
                 }
             }
-            if(mok[kiek].ndrez[mok[kiek].n]<0||mok[kiek].ndrez[mok[kiek].n]>10){
-                mok[kiek].ndrez.pop_back();
-                mok[kiek].n--;
-                break;
+            while(m.egzrez<0||m.egzrez>10){
+                cout<<"Ivertinimas turi buti desimtbaleje sistemoje, pabandykite dar karta"<<endl;
+                while(true){
+                    if(cin>>m.egzrez) break;
+                    else{
+                        cin.clear();
+                        cin.ignore();
+                        cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
+                    }
+                }
             }
         }
-    }
-    sort(kiek);
 
-    if(x==2||x==3){
-        mok[kiek].egzrez=rand()%11;
-    }
-    else{
+        calc(m);
+        
+        cout<<"Jei norite prideti daugiau mokiniu spauskite 1, jei baigete, spauskite bet koki kita skaiciu"<<endl;
+        int a;
+
         while(true){
-            cout<<"Irasykite egzamino rezultata"<<endl;
-            if(cin>>mok[kiek].egzrez) break;
+            if(cin>>a) break;
             else{
                 cin.clear();
                 cin.ignore();
                 cout<<"Klaidingai ivesti duomenys"<<endl;
             }
         }
-        while(mok[kiek].egzrez<0||mok[kiek].egzrez>10){
-            cout<<"Ivertinimas turi buti desimtbaleje sistemoje, pabandykite dar karta"<<endl;
-            while(true){
-                if(cin>>mok[kiek].egzrez) break;
-                else{
-                    cin.clear();
-                    cin.ignore();
-                    cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
-                }
-            }
-        }
-    }
-    
-    cout<<"Jei norite prideti daugiau mokiniu spauskite 1, jei baigete, spauskite bet koki kita skaiciu"<<endl;
-    int a;
 
-    while(true){
-        if(cin>>a) break;
-        else{
-            cin.clear();
-            cin.ignore();
-            cout<<"Klaidingai ivesti duomenys"<<endl;
-        }
+        mok.push_back(m);
+
+        if(a==1) input(moksk, mok, duration);
+
+        moksk++;
     }
-    if(a==1) input(kiek);
 
     return;
 }
 
 int main(){    
-    int kiek=-1;
+    vector<duom> mok;
 
-    input(kiek);
+    double duration=0;
+
+    int moksk=-1;
+
+    input(moksk, mok, duration);
 
     cout<<setw(19)<<left<<"Vardas"<<setw(19)<<left<<"Pavarde"<<setw(19)<<left<<"Galutinis (Vid.)"<<setw(19)<<left<<"Galutinis (Med.)"<<endl;
     cout<<"-------------------------------------------------------------------------"<<endl;
 
-    for(int i=0; i<kiek+1; i++){
-        calc(i);
-        cout<<setw(19)<<left<<mok[i].vard<<setw(19)<<left<<mok[i].pav<<setw(19)<<left<<setprecision(2)<<mok[i].galvid<<setw(19)<<left<<setprecision(2)<<mok[i].galmed<<endl;
+    for(int i=0; i<moksk; i++){
+        cout<<setw(19)<<left<<mok[i].vard<<setw(19)<<left<<mok[i].pav<<setw(19)<<left<<setprecision(3)<<mok[i].galvid<<setw(19)<<left<<setprecision(3)<<mok[i].galmed<<endl;
     }
+
+    cout<<duration;
     
     return 0;
 }
