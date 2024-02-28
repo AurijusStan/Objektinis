@@ -69,6 +69,11 @@ void calc(duom &m){
 
     sort(m.ndrez.begin(), m.ndrez.end());
 
+    for(int i=0; i<m.ndrez.size(); i++){
+        cout<<m.ndrez[i]<<" ";
+    }
+    cout<<endl;
+
     if(m.ndrez.size()!=0){
         sum=sum/(m.ndrez.size());
         if((m.ndrez.size())%2==0){
@@ -290,20 +295,20 @@ void input(int &moksk, vector<duom>& mok, double &duration){
         }
         else{
             cout<<"Irasykite nd rezultatus po kiekvieno spaudziant enter, jei baigete parasykite skaiciu netelpanti i desimtbales sistemos intervala"<<endl;
+            int h;
             while(true){
-                m.ndrez.push_back(0);
                 while(true){
-                    if(cin>>m.ndrez[m.ndrez.size()]) break;
+                    if(cin>>h) break;
                     else{
                         cin.clear();
                         cin.ignore();
                         cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
                     }
                 }
-                if(m.ndrez[m.ndrez.size()]<0||m.ndrez[m.ndrez.size()]>10){
-                    m.ndrez.pop_back();
+                if(h<0||h>10){
                     break;
                 }
+                m.ndrez.push_back(h);
             }
         }
 
