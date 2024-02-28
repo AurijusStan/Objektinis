@@ -69,11 +69,6 @@ void calc(duom &m){
 
     sort(m.ndrez.begin(), m.ndrez.end());
 
-    for(int i=0; i<m.ndrez.size(); i++){
-        cout<<m.ndrez[i]<<" ";
-    }
-    cout<<endl;
-
     if(m.ndrez.size()!=0){
         sum=sum/(m.ndrez.size());
         if((m.ndrez.size())%2==0){
