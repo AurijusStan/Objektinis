@@ -199,24 +199,34 @@ void input(int &moksk, vector<duom>& mok, double &duration){
     if(moksk==-1){
         while(true){
         cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 4-skaityti duomenis is failo kursiokai.txt; 5-baigti darba"<<endl;
-        if(cin>>x) break;
-        else{
-            cin.clear();
-            cin.ignore();
-            cout<<"Klaidingai ivesti duomenys"<<endl;
-        }
-        }
-        while(x<1||x>5){
-            cout<<"Pasirinkite viena is duotu variantu"<<endl;
-            while(true){
-                if(cin>>x) break;
-                else{
-                    cin.clear();
-                    cin.ignore();
-                    cout<<"Klaidingai ivesti duomenys"<<endl;
-                }
+        if(!(cin>>x)||x<1||x>5){
+            try{
+                throw runtime_error("Klaidingai ivesti duomenys\n");
+            }
+            catch(const runtime_error &e){
+                cin.clear();
+                cin.ignore();
+                cout<<e.what();
             }
         }
+        else{
+            break;
+            // cin.clear();
+            // cin.ignore();
+            // cout<<"Klaidingai ivesti duomenys"<<endl;
+        }
+        }
+        // while(x<1||x>5){
+        //     cout<<"Pasirinkite viena is duotu variantu"<<endl;
+        //     while(true){
+        //         if(cin>>x) break;
+        //         else{
+        //             cin.clear();
+        //             cin.ignore();
+        //             cout<<"Klaidingai ivesti duomenys"<<endl;
+        //         }
+        //     }
+        // }
     }
     else{
         while(true){
