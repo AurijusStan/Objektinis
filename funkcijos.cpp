@@ -70,72 +70,66 @@ double isfailo(int &moksk, vector<duom> &mok){
     int ndsk=0;
 
     cout<<"Kiek asmenu nuskaityti nuo duoto failo?"<<endl;
-    while(true){
-        if(cin>>moksk) break;
-        else{
+    while(!(cin>>moksk)||moksk<0){
+        try{
+            throw runtime_error("Klaidingai ivesti duomenys\n");
+        }
+        catch(const runtime_error &e){
             cin.clear();
             cin.ignore();
-            cout<<"Klaidingai ivesti duomenys"<<endl;
-        }
-    }
-    while(moksk<0){
-        cout<<"Negali buti neigiamas skaicius mokiniu"<<endl;
-        while(true){
-            if(cin>>moksk) break;
-            else{
-                cin.clear();
-                cin.ignore();
-                cout<<"Klaidingai ivesti duomenys, iveskite teigiama skaiciu"<<endl;
-            }
+            cout<<e.what();
         }
     }
 
     int x;
     int t;
 
-    while(true){
-        cout<<"Rusiuoti pagal: 1-varda; 2-pavarde; 3-galutini(vid); 4-galutini(med)"<<endl;
-        if(cin>>x) break;
-        else{
+    cout<<"Rusiuoti pagal: 1-varda; 2-pavarde; 3-galutini(vid); 4-galutini(med)"<<endl;
+    while(!(cin>>x)||x<1||x>4){
+        try{
+            throw runtime_error("Klaidingai ivesti duomenys\n");
+        }
+        catch(const runtime_error &e){
             cin.clear();
             cin.ignore();
-            cout<<"Klaidingai ivesti duomenys"<<endl;
-        }
-    }
-    while(x<1||x>4){
-        cout<<"Pasirinkite viena is duotu variantu"<<endl;
-        while(true){
-            if(cin>>x) break;
-            else{
-                cin.clear();
-                cin.ignore();
-                cout<<"Klaidingai ivesti duomenys"<<endl;
-            }
+            cout<<e.what();
         }
     }
 
-    while(true){
-        cout<<"Tvarka: 1-didejimo; 2-mazejimo"<<endl;
-        if(cin>>t) break;
-        else{
+    cout<<"Tvarka: 1-didejimo; 2-mazejimo"<<endl;
+    while(!(cin>>t)||t<1||t>2){
+        try{
+            throw runtime_error("Klaidingai ivesti duomenys\n");
+        }
+        catch(const runtime_error &e){
             cin.clear();
             cin.ignore();
-            cout<<"Klaidingai ivesti duomenys"<<endl;
-        }
-    }
-    while(t<1||t>2){
-        cout<<"Pasirinkite viena is duotu variantu"<<endl;
-        while(true){
-            if(cin>>t) break;
-            else{
-                cin.clear();
-                cin.ignore();
-                cout<<"Klaidingai ivesti duomenys"<<endl;
-            }
+            cout<<e.what();
+            cout<<"Pasirinkite viena is variantu"<<endl;
         }
     }
 
-    freopen("studentai1000000.txt", "r", stdin);
+    string failas;
+
+    while(true){
+        cout<<"Iveskite faila is kurio imti duomenis"<<endl;
+        cin>>failas;
+        try{
+            FILE *file=freopen((failas+".txt").c_str(), "r", stdin);      
+
+            if(file==nullptr){
+                throw runtime_error("Klaidingai ivesti duomenys\n"); 
+            }
+            else break;
+        }
+        catch(const runtime_error &e){
+            cout<<e.what();
+            cin.clear();
+            while (cin.get() != '\n') {
+                continue;
+            }
+        }
+    }
 
     string temp;
 
@@ -198,56 +192,34 @@ void input(int &moksk, vector<duom>& mok, double &duration){
 
     if(moksk==-1){
         while(true){
-        cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 4-skaityti duomenis is failo kursiokai.txt; 5-baigti darba"<<endl;
-        if(!(cin>>x)||x<1||x>5){
-            try{
-                throw runtime_error("Klaidingai ivesti duomenys\n");
+            cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 4-skaityti duomenis is failo; 5-baigti darba"<<endl;
+            if(!(cin>>x)||x<1||x>5){
+                try{
+                    throw runtime_error("Klaidingai ivesti duomenys\n");
+                }
+                catch(const runtime_error &e){
+                    cin.clear();
+                    cin.ignore();
+                    cout<<e.what();
+                }
             }
-            catch(const runtime_error &e){
-                cin.clear();
-                cin.ignore();
-                cout<<e.what();
-            }
+            else break;
         }
-        else{
-            break;
-            // cin.clear();
-            // cin.ignore();
-            // cout<<"Klaidingai ivesti duomenys"<<endl;
-        }
-        }
-        // while(x<1||x>5){
-        //     cout<<"Pasirinkite viena is duotu variantu"<<endl;
-        //     while(true){
-        //         if(cin>>x) break;
-        //         else{
-        //             cin.clear();
-        //             cin.ignore();
-        //             cout<<"Klaidingai ivesti duomenys"<<endl;
-        //         }
-        //     }
-        // }
     }
     else{
         while(true){
-        cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 5-baigti darba"<<endl;
-        if(cin>>x) break;
-        else{
-            cin.clear();
-            cin.ignore();
-            cout<<"Klaidingai ivesti duomenys"<<endl;
-        }
-        }
-        while(x<1||x>5||x==4){
-            cout<<"Pasirinkite viena is duotu variantu"<<endl;
-            while(true){
-                if(cin>>x) break;
-                else{
+            cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 5-baigti darba"<<endl;
+            if(!(cin>>x)||x<1||x>5||x==4){
+                try{
+                    throw runtime_error("Klaidingai ivesti duomenys\n");
+                }
+                catch(const runtime_error &e){
                     cin.clear();
                     cin.ignore();
-                    cout<<"Klaidingai ivesti duomenys"<<endl;
+                    cout<<e.what();
                 }
             }
+            else break;
         }
     }
 
@@ -273,9 +245,27 @@ void input(int &moksk, vector<duom>& mok, double &duration){
         }
         else{
             cout<<"Irasykite varda"<<endl;
-            cin>>m.vard;
+            while(!(cin>>m.vard)){
+                try{
+                    throw runtime_error("Klaidingai ivesti duomenys\n");
+                }
+                catch(const runtime_error &e){
+                    cin.clear();
+                    cin.ignore();
+                    cout<<e.what();
+                }
+            }
             cout<<"Irasykite pavarde"<<endl;
-            cin>>m.pav;
+            while(!(cin>>m.pav)){
+                try{
+                    throw runtime_error("Klaidingai ivesti duomenys\n");
+                }
+                catch(const runtime_error &e){
+                    cin.clear();
+                    cin.ignore();
+                    cout<<e.what();
+                }
+            }
         }
         
         if(x==2||x==3){
@@ -287,12 +277,14 @@ void input(int &moksk, vector<duom>& mok, double &duration){
             cout<<"Irasykite nd rezultatus po kiekvieno spaudziant enter, jei baigete parasykite skaiciu netelpanti i desimtbales sistemos intervala"<<endl;
             int h;
             while(true){
-                while(true){
-                    if(cin>>h) break;
-                    else{
+                while(!(cin>>h)){
+                    try{
+                        throw runtime_error("Klaidingai ivesti duomenys\n");
+                    }
+                    catch(const runtime_error &e){
                         cin.clear();
                         cin.ignore();
-                        cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
+                        cout<<e.what();
                     }
                 }
                 if(h<0||h>10){
@@ -301,44 +293,36 @@ void input(int &moksk, vector<duom>& mok, double &duration){
                 m.ndrez.push_back(h);
             }
         }
-
         if(x==2||x==3){
             m.egzrez=rand()%11;
         }
         else{
-            while(true){
-                cout<<"Irasykite egzamino rezultata"<<endl;
-                if(cin>>m.egzrez) break;
-                else{
+            cout<<"Irasykite egzamino rezultata"<<endl;
+            while(!(cin>>m.egzrez)||m.egzrez<0||m.egzrez>10){
+                try{
+                    throw runtime_error("Klaidingai ivesti duomenys\n");
+                }
+                catch(const runtime_error &e){
                     cin.clear();
                     cin.ignore();
-                    cout<<"Klaidingai ivesti duomenys"<<endl;
-                }
-            }
-            while(m.egzrez<0||m.egzrez>10){
-                cout<<"Ivertinimas turi buti desimtbaleje sistemoje, pabandykite dar karta"<<endl;
-                while(true){
-                    if(cin>>m.egzrez) break;
-                    else{
-                        cin.clear();
-                        cin.ignore();
-                        cout<<"Klaidingai ivesti duomenys, iveskite sveika skaiciu"<<endl;
-                    }
+                    cout<<e.what();
                 }
             }
         }
 
         calc(m);
         
-        cout<<"Jei norite prideti daugiau mokiniu spauskite 1, jei baigete, spauskite bet koki kita skaiciu"<<endl;
+        cout<<"Jei norite prideti daugiau mokiniu spauskite 1, jei baigete, spauskite bet koki kita svaika skaiciu"<<endl;
         int a;
 
-        while(true){
-            if(cin>>a) break;
-            else{
+        while(!(cin>>a)){
+            try{
+                throw runtime_error("Klaidingai ivesti duomenys\n");
+            }
+            catch(const runtime_error &e){
                 cin.clear();
                 cin.ignore();
-                cout<<"Klaidingai ivesti duomenys"<<endl;
+                cout<<e.what();
             }
         }
 
