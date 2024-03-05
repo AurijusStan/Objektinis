@@ -237,15 +237,30 @@ void kurtifaila(){
         }
     }
 
-    cout<<setw(19)<<left<<"Vardas"<<setw(19)<<left<<"Pavarde";
+    freopen((failas+".txt").c_str(), "r", stdin);
+    freopen((failas+".txt").c_str(), "w", stdout);
+
+    cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
     
     for(int i=1; i<=ndsk; i++){
-        cout<<setw(6)<<left<<"ND"<<i;
+        cout<<"ND"<<setw(6)<<left<<i;
     }
 
-    cout<<setw(6)<<left<<"Egz."<<endl;
+    cout<<"Egz."<<endl;
 
-    
+    for(int i=1; i<=moksk; i++){
+        cout<<"Vardas"<<setw(19)<<left<<i;
+        cout<<"Pavarde"<<setw(19)<<left<<i;
+
+        for(int j=1; j<=ndsk; j++){
+            cout<<setw(8)<<rand()%10+1;
+        }
+
+        cout<<rand()%10+1<<endl;
+    }
+
+    freopen("CON", "r", stdin);
+    freopen("CON", "w", stdout);
 }
 
 void input(int &moksk, vector<duom>& mok, double &duration){
