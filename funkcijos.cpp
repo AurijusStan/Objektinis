@@ -185,6 +185,69 @@ double isfailo(int &moksk, vector<duom> &mok){
     return(duration.count());
 }
 
+void kurtifaila(){
+    string failas;
+    while(true){
+        cout<<"Iveskite failo pavadinima"<<endl;
+        cin>>failas;
+
+        ifstream file(failas+".txt");
+
+        if(file.is_open()){
+            try{
+                throw runtime_error("Toks failas jau yra\n"); 
+            }
+            catch(const runtime_error &e){
+                cout<<e.what();
+            }
+            file.close();
+        }
+        else{
+            ofstream file(failas+".txt");
+            file.close();
+            freopen((failas+".txt").c_str(), "r", stdin);
+            break;
+        };
+    }
+    freopen("CON", "r", stdin);
+
+    cout<<"Iveskite kiek asmenu bus faile"<<endl;
+    int moksk;
+    while(!(cin>>moksk)||moksk<0){
+        try{
+            throw runtime_error("Klaidingai ivesti duomenys\n");
+        }
+        catch(const runtime_error &e){
+            cin.clear();
+            cin.ignore();
+            cout<<e.what();
+        }
+    }
+
+    cout<<"Iveskite kiek namu darbu buvo paskirta"<<endl;
+    int ndsk;
+    while(!(cin>>ndsk)||ndsk<0){
+        try{
+            throw runtime_error("Klaidingai ivesti duomenys\n");
+        }
+        catch(const runtime_error &e){
+            cin.clear();
+            cin.ignore();
+            cout<<e.what();
+        }
+    }
+
+    cout<<setw(19)<<left<<"Vardas"<<setw(19)<<left<<"Pavarde";
+    
+    for(int i=1; i<=ndsk; i++){
+        cout<<setw(6)<<left<<"ND"<<i;
+    }
+
+    cout<<setw(6)<<left<<"Egz."<<endl;
+
+    
+}
+
 void input(int &moksk, vector<duom>& mok, double &duration){
 
     srand(time(nullptr));
@@ -193,8 +256,8 @@ void input(int &moksk, vector<duom>& mok, double &duration){
 
     if(moksk==-1){
         while(true){
-            cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 4-skaityti duomenis is failo; 5-baigti darba"<<endl;
-            if(!(cin>>x)||x<1||x>5){
+            cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 4-skaityti duomenis is failo; 5-sukurti nauja faila; 6-baigti darba"<<endl;
+            if(!(cin>>x)||x<1||x>6){
                 try{
                     throw runtime_error("Klaidingai ivesti duomenys\n");
                 }
@@ -209,8 +272,8 @@ void input(int &moksk, vector<duom>& mok, double &duration){
     }
     else{
         while(true){
-            cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 5-baigti darba"<<endl;
-            if(!(cin>>x)||x<1||x>5||x==4){
+            cout<<"1-ranka; 2-generuoti pazymius; 3-generuoti pazymius ir varda/pavarde; 5-sukurti nauja faila; 6-baigti darba"<<endl;
+            if(!(cin>>x)||x<1||x>6||x==4){
                 try{
                     throw runtime_error("Klaidingai ivesti duomenys\n");
                 }
@@ -224,7 +287,12 @@ void input(int &moksk, vector<duom>& mok, double &duration){
         }
     }
 
-    if(x==5) exit(0);
+    if(x==6) exit(0);
+
+    if(x==5){
+        kurtifaila();
+        input(moksk, mok, duration);
+    }
 
     if(x==4){
         duration=isfailo(moksk, mok);

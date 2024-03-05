@@ -29,6 +29,8 @@ void calc(duom &);
 
 double isfailo(int &, vector<duom>&);
 
+void kurtifaila();
+
 void input(int &, vector<duom>&, double &);
 
 #endif 
