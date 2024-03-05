@@ -115,21 +115,21 @@ double isfailo(int &moksk, vector<duom> &mok){
         cout<<"Iveskite faila is kurio imti duomenis"<<endl;
         cin>>failas;
 
-        FILE *file=freopen((failas+".txt").c_str(), "r", stdin);
+        ifstream file(failas+".txt");
 
-        if(file==nullptr){
+        if(!file.is_open()){
             try{
                 throw runtime_error("Klaidingai ivesti duomenys\n"); 
             }
             catch(const runtime_error &e){
                 cout<<e.what();
-                cin.clear();
-                fclose(stdin);
-                // while (cin.get()!='\n');
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         }
-        else break;
+        else{
+            file.close();
+            freopen((failas+".txt").c_str(), "r", stdin);
+            break;
+        };
     }
 
     string temp;
