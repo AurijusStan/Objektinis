@@ -203,26 +203,26 @@ double isfailo(int &moksk, vector<duom> &mok){
         auto stop = high_resolution_clock::now();
         auto duration = duration_cast<milliseconds>(stop - start);
 
-        cout<<"Skaitymo ir skirstymo laikas: "<<duration.count();
+        cout<<"Skaitymo ir skirstymo laikas: "<<duration.count()<<endl;
 
-        auto start = high_resolution_clock::now();
+        start = high_resolution_clock::now();
 
         rusiuoti(x, t, pazenge);
         rusiuoti(x, t, mok);
 
-        auto stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
+        stop = high_resolution_clock::now();
+        duration = duration_cast<milliseconds>(stop - start);
 
-        cout<<"Rusiavimo laikas: "<<duration.count();
+        cout<<"Rusiavimo laikas: "<<duration.count()<<endl;
 
-        auto start = high_resolution_clock::now();
+        start = high_resolution_clock::now();
 
         ifstream file("pazenge.txt");
 
         if(file.is_open()){
             remove("pazenge.txt");
         }
-        ofstream file("pazenge.txt");
+        // ofstream file("pazenge.txt");
         file.close();
         freopen("pazenge.txt", "r", stdin);
         freopen("pazenge.txt", "w", stdout);
@@ -236,33 +236,33 @@ double isfailo(int &moksk, vector<duom> &mok){
         cout<<"Egz."<<endl;
 
         for(int i=0; i<pazenge.size(); i++){
-            cout<<pazenge[i].vard<<setw(19);
-            cout<<pazenge[i].pav<<setw(19);
+            cout<<setw(25)<<left<<pazenge[i].vard;
+            cout<<setw(25)<<left<<pazenge[i].pav;
 
             for(int j=0; j<ndsk; j++){
-                cout<<setw(8)<<pazenge[i].ndrez[j];
+                cout<<setw(6)<<pazenge[i].ndrez[j];
             }
 
             cout<<pazenge[i].egzrez<<endl;
         }
 
-        auto stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
+        stop = high_resolution_clock::now();
+        duration = duration_cast<milliseconds>(stop - start);
 
         freopen("CON", "r", stdin);
         freopen("CON", "w", stdout);
 
-        cout<<"Pazengusiu spausdinimo laikas: "<<duration.count();
+        cout<<"Pazengusiu spausdinimo laikas: "<<duration.count()<<endl;
 
-        auto start = high_resolution_clock::now();
+        start = high_resolution_clock::now();
 
-        ifstream file("zluge.txt");
+        ifstream filez("zluge.txt");
 
-        if(file.is_open()){
+        if(filez.is_open()){
             remove("zluge.txt");
         }
-        ofstream file("zluge.txt");
-        file.close();
+        // ofstream file("zluge.txt");
+        filez.close();
         freopen("zluge.txt", "r", stdin);
         freopen("zluge.txt", "w", stdout);
 
@@ -275,23 +275,25 @@ double isfailo(int &moksk, vector<duom> &mok){
         cout<<"Egz."<<endl;
 
         for(int i=0; i<mok.size(); i++){
-            cout<<mok[i].vard<<setw(19);
-            cout<<mok[i].pav<<setw(19);
+            cout<<setw(25)<<left<<mok[i].vard;
+            cout<<setw(25)<<left<<mok[i].pav;
 
             for(int j=0; j<ndsk; j++){
-                cout<<setw(8)<<mok[i].ndrez[j];
+                cout<<setw(6)<<mok[i].ndrez[j];
             }
 
             cout<<mok[i].egzrez<<endl;
         }
 
-        auto stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
+        stop = high_resolution_clock::now();
+        duration = duration_cast<milliseconds>(stop - start);
 
         freopen("CON", "r", stdin);
         freopen("CON", "w", stdout);
 
         cout<<"Zlugusiu spausdinimo laikas: "<<duration.count();
+
+        exit(0);
 
     }
     else rusiuoti(x, t, mok);
@@ -316,13 +318,12 @@ void kurtifaila(){
                 throw runtime_error("Toks failas jau yra\n"); 
             }
             catch(const runtime_error &e){
-                
                 cout<<e.what();
             }
             file.close();
         }
         else{
-            ofstream file(failas+".txt");
+            // ofstream file(failas+".txt");
             file.close();
             freopen((failas+".txt").c_str(), "r", stdin);
             break;
