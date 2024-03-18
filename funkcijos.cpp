@@ -236,11 +236,10 @@ double isfailo(int &moksk, vector<duom> &mok){
         cout<<"Egz."<<endl;
 
         for(int i=0; i<pazenge.size(); i++){
-            cout<<setw(25)<<left<<pazenge[i].vard;
-            cout<<setw(25)<<left<<pazenge[i].pav;
+            cout<<setw(25)<<left<<pazenge[i].vard<<setw(25)<<left<<pazenge[i].pav;
 
             for(int j=0; j<ndsk; j++){
-                cout<<setw(6)<<pazenge[i].ndrez[j];
+                cout<<setw(8)<<pazenge[i].ndrez[j];
             }
 
             cout<<pazenge[i].egzrez<<endl;
@@ -275,11 +274,10 @@ double isfailo(int &moksk, vector<duom> &mok){
         cout<<"Egz."<<endl;
 
         for(int i=0; i<mok.size(); i++){
-            cout<<setw(25)<<left<<mok[i].vard;
-            cout<<setw(25)<<left<<mok[i].pav;
+            cout<<setw(25)<<left<<mok[i].vard<<setw(25)<<left<<mok[i].pav;
 
             for(int j=0; j<ndsk; j++){
-                cout<<setw(6)<<mok[i].ndrez[j];
+                cout<<setw(8)<<mok[i].ndrez[j];
             }
 
             cout<<mok[i].egzrez<<endl;
