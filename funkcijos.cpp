@@ -109,6 +109,21 @@ double isfailo(int &moksk, vector<duom> &mok){
         }
     }
 
+    bool uzd4;
+
+    cout<<"Ar atliekama 0.4 uzduotis?(1/0)"<<endl;
+    while(!(cin>>uzd4)){
+        try{
+            throw runtime_error("Klaidingai ivesti duomenys\n");
+        }
+        catch(const runtime_error &e){
+            cin.clear();
+            cin.ignore();
+            cout<<e.what();
+            cout<<"Pasirinkite viena is variantu"<<endl;
+        }
+    }
+
     string failas;
 
     while(true){
@@ -150,6 +165,8 @@ double isfailo(int &moksk, vector<duom> &mok){
         }
     }
 
+    vector<duom> pazenge;
+
     mok.reserve(moksk);
 
     for(int i=0; i<moksk; i++){
@@ -171,12 +188,113 @@ double isfailo(int &moksk, vector<duom> &mok){
 
         calc(m);
 
-        mok.push_back(m);
-
+        if(uzd4==true){
+            if(m.galvid>=5||m.galmed>=5){
+                pazenge.push_back(m);
+            }
+            else mok.push_back(m);
+        }
+        else mok.push_back(m);
+        
         cin.ignore(255, '\n');
     }
 
-    rusiuoti(x, t, mok);
+    if(uzd4==true){
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+
+        cout<<"Skaitymo ir skirstymo laikas: "<<duration.count();
+
+        auto start = high_resolution_clock::now();
+
+        rusiuoti(x, t, pazenge);
+        rusiuoti(x, t, mok);
+
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+
+        cout<<"Rusiavimo laikas: "<<duration.count();
+
+        auto start = high_resolution_clock::now();
+
+        ifstream file("pazenge.txt");
+
+        if(file.is_open()){
+            remove("pazenge.txt");
+        }
+        ofstream file("pazenge.txt");
+        file.close();
+        freopen("pazenge.txt", "r", stdin);
+        freopen("pazenge.txt", "w", stdout);
+
+        cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
+    
+        for(int i=1; i<=ndsk; i++){
+            cout<<"ND"<<setw(6)<<left<<i;
+        }
+
+        cout<<"Egz."<<endl;
+
+        for(int i=0; i<pazenge.size(); i++){
+            cout<<pazenge[i].vard<<setw(19);
+            cout<<pazenge[i].pav<<setw(19);
+
+            for(int j=0; j<ndsk; j++){
+                cout<<setw(8)<<pazenge[i].ndrez[j];
+            }
+
+            cout<<pazenge[i].egzrez<<endl;
+        }
+
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+
+        freopen("CON", "r", stdin);
+        freopen("CON", "w", stdout);
+
+        cout<<"Pazengusiu spausdinimo laikas: "<<duration.count();
+
+        auto start = high_resolution_clock::now();
+
+        ifstream file("zluge.txt");
+
+        if(file.is_open()){
+            remove("zluge.txt");
+        }
+        ofstream file("zluge.txt");
+        file.close();
+        freopen("zluge.txt", "r", stdin);
+        freopen("zluge.txt", "w", stdout);
+
+        cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
+    
+        for(int i=1; i<=ndsk; i++){
+            cout<<"ND"<<setw(6)<<left<<i;
+        }
+
+        cout<<"Egz."<<endl;
+
+        for(int i=0; i<mok.size(); i++){
+            cout<<mok[i].vard<<setw(19);
+            cout<<mok[i].pav<<setw(19);
+
+            for(int j=0; j<ndsk; j++){
+                cout<<setw(8)<<mok[i].ndrez[j];
+            }
+
+            cout<<mok[i].egzrez<<endl;
+        }
+
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+
+        freopen("CON", "r", stdin);
+        freopen("CON", "w", stdout);
+
+        cout<<"Zlugusiu spausdinimo laikas: "<<duration.count();
+
+    }
+    else rusiuoti(x, t, mok);
     
     auto stop = high_resolution_clock::now();
 
@@ -198,6 +316,7 @@ void kurtifaila(){
                 throw runtime_error("Toks failas jau yra\n"); 
             }
             catch(const runtime_error &e){
+                
                 cout<<e.what();
             }
             file.close();
@@ -237,6 +356,8 @@ void kurtifaila(){
         }
     }
 
+    auto start = high_resolution_clock::now();
+
     freopen((failas+".txt").c_str(), "r", stdin);
     freopen((failas+".txt").c_str(), "w", stdout);
 
@@ -259,8 +380,13 @@ void kurtifaila(){
         cout<<rand()%10+1<<endl;
     }
 
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
     freopen("CON", "r", stdin);
     freopen("CON", "w", stdout);
+
+    cout<<"Failo kurimo laikas: "<<duration.count()<<endl;
 }
 
 void input(int &moksk, vector<duom>& mok, double &duration){
