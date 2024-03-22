@@ -27,7 +27,8 @@ bool sort4u(const duom &a, const duom &b){
     return(a.galmed>b.galmed);
 }
 
-void rusiuoti(int x, int t, vector<duom>& mok){
+template <typename sk=int, typename talpa> 
+void rusiuoti(sk &x, sk &t, talpa &mok){
     if(t==1){
         if(x==1) sort(mok.begin(), mok.end(), sort1);
         if(x==2) sort(mok.begin(), mok.end(), sort2);
@@ -64,6 +65,75 @@ void calc(duom &m){
 
     m.galvid=sum*0.4+egz*0.6;
     m.galmed=med*0.4+egz*0.6;
+}
+
+template <typename talpa, typename sk> 
+void skirstymas(talpa &x, talpa &y, sk t){
+    int k=x.size();
+    int tarp;
+    for(int i=0; i<k; i++){
+        if(t==3){
+            if(x[i].galvid>=5){
+                tarp=i;
+                break;
+            }
+        }
+        if(t==4){
+            if(x[i].galmed>=5){
+                tarp=i;
+                break;
+            }
+        }
+    }
+    for(int i=tarp; i<k; i++){
+        y.push_back(x[i]);
+    }
+    x.erase(x.begin()+tarp, x.end());
+}
+
+template <typename sk, typename talpa>
+void skaitymas(sk &moksk, sk &ndsk, talpa &mok){
+    string temp;
+
+    cin>>temp;
+    cin>>temp;
+
+    while(true){
+        cin>>temp;
+        if(temp.back()>='0'&&temp.back()<='9'){
+            ndsk++;
+        }
+        else{
+            getline(cin, temp);
+            break;
+        }
+    }    
+
+    mok.reserve(moksk);
+
+    for(int i=0; i<moksk; i++){
+        duom m;
+
+        string vardas;
+
+        cin>>m.vard>>m.pav;
+
+        m.ndrez.reserve(ndsk);
+
+        for(int j=0; j<ndsk; j++){
+            int a;
+            cin>>a;
+            m.ndrez.push_back(a);
+        }
+
+        cin>>m.egzrez;
+
+        calc(m);
+
+        mok.push_back(m);
+        
+        cin.ignore(255, '\n');
+    }
 }
 
 double isfailo(int &moksk, vector<duom> &mok){
@@ -147,74 +217,38 @@ double isfailo(int &moksk, vector<duom> &mok){
         };
     }
 
-    string temp;
-
     auto start = high_resolution_clock::now();
 
-    cin>>temp;
-    cin>>temp;
+    skaitymas(moksk, ndsk, mok);
 
-    while(true){
-        cin>>temp;
-        if(temp.back()>='0'&&temp.back()<='9'){
-            ndsk++;
-        }
-        else{
-            getline(cin, temp);
-            break;
-        }
-    }
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    cout<<"Skaitymo laikas: "<<duration.count()<<endl;
+
+    start = high_resolution_clock::now();
+
+    rusiuoti(x, t, mok);
+
+    stop = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(stop - start);
+
+    cout<<"Rusiavimo laikas: "<<duration.count()<<endl;
+
+    start = high_resolution_clock::now();
 
     vector<duom> pazenge;
 
-    mok.reserve(moksk);
-
-    for(int i=0; i<moksk; i++){
-        duom m;
-
-        string vardas;
-
-        cin>>m.vard>>m.pav;
-
-        m.ndrez.reserve(ndsk);
-
-        for(int j=0; j<ndsk; j++){
-            int a;
-            cin>>a;
-            m.ndrez.push_back(a);
-        }
-
-        cin>>m.egzrez;
-
-        calc(m);
-
-        if(uzd4==true){
-            if(m.galvid>=5||m.galmed>=5){
-                pazenge.push_back(m);
-            }
-            else mok.push_back(m);
-        }
-        else mok.push_back(m);
-        
-        cin.ignore(255, '\n');
+    if(uzd4==true){
+        skirstymas(mok, pazenge, x);
     }
 
+    stop = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(stop - start);
+
+    cout<<"Skirstymo laikas: "<<duration.count()<<endl;
+
     if(uzd4==true){
-        auto stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
-
-        cout<<"Skaitymo ir skirstymo laikas: "<<duration.count()<<endl;
-
-        start = high_resolution_clock::now();
-
-        rusiuoti(x, t, pazenge);
-        rusiuoti(x, t, mok);
-
-        stop = high_resolution_clock::now();
-        duration = duration_cast<milliseconds>(stop - start);
-
-        cout<<"Rusiavimo laikas: "<<duration.count()<<endl;
-
         start = high_resolution_clock::now();
 
         ifstream file("pazenge.txt");
@@ -222,7 +256,6 @@ double isfailo(int &moksk, vector<duom> &mok){
         if(file.is_open()){
             remove("pazenge.txt");
         }
-        // ofstream file("pazenge.txt");
         file.close();
         freopen("pazenge.txt", "r", stdin);
         freopen("pazenge.txt", "w", stdout);
@@ -251,16 +284,15 @@ double isfailo(int &moksk, vector<duom> &mok){
         freopen("CON", "r", stdin);
         freopen("CON", "w", stdout);
 
-        cout<<"Pazengusiu spausdinimo laikas: "<<duration.count()<<endl;
+        // cout<<"Pazengusiu spausdinimo laikas: "<<duration.count()<<endl;
 
-        start = high_resolution_clock::now();
+        auto start = high_resolution_clock::now();
 
         ifstream filez("zluge.txt");
 
         if(filez.is_open()){
             remove("zluge.txt");
         }
-        // ofstream file("zluge.txt");
         filez.close();
         freopen("zluge.txt", "r", stdin);
         freopen("zluge.txt", "w", stdout);
@@ -289,16 +321,10 @@ double isfailo(int &moksk, vector<duom> &mok){
         freopen("CON", "r", stdin);
         freopen("CON", "w", stdout);
 
-        cout<<"Zlugusiu spausdinimo laikas: "<<duration.count();
+        // cout<<"Zlugusiu spausdinimo laikas: "<<duration.count();
 
         exit(0);
-
     }
-    else rusiuoti(x, t, mok);
-    
-    auto stop = high_resolution_clock::now();
-
-    auto duration = duration_cast<milliseconds>(stop - start);
 
     return(duration.count());
 }
@@ -321,7 +347,6 @@ void kurtifaila(){
             file.close();
         }
         else{
-            // ofstream file(failas+".txt");
             file.close();
             freopen((failas+".txt").c_str(), "r", stdin);
             break;

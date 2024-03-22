@@ -23,9 +23,16 @@ bool sort2u(const duom &, const duom &);
 bool sort3u(const duom &, const duom &);
 bool sort4u(const duom &, const duom &);
 
-void rusiuoti(int, int, vector<duom>&);
+template <typename sk=int, typename talpa>
+void rusiuoti(sk &, sk &, talpa &);
 
 void calc(duom &);
+
+template <typename talpa, typename sk> 
+void skirstymas(talpa &, talpa &, sk);
+
+template <typename sk, typename talpa>
+void skaitymas(sk &, sk &, talpa &);
 
 double isfailo(int &, vector<duom>&);
 

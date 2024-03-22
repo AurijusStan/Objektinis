@@ -12,11 +12,38 @@
   - Sekti terminale matomus žingsnius.
   - Gauti rezultatus.
 
+## Sistemos specifikacijos
+
+- **CPU**: AMD Ryzen 5 5600H 3.30 GHz
+- **RAM**: DDR4 16GB
+- **HDD**: SSD 512GB
+
 ## Greičio testai (5 testų vidurkis) ms
-  | Failas | Failo generavimo trukmė | Skaitymo ir skirstymo trukmė | Rūšiavimo trukmė | Pažengusių mok. spausdinimo trukmė | Žlugusių mok. spausdinimo trukmė |
-  | :--- | ---- | ---- | ---- | ---- | ---- |
-  | stud1000 | 9 | 10 | 1 | 6 | 4 |
-  | stud10000 | 57 | 82 | 10 | 33 | 19 |
-  | stud100000 | 527 | 795 | 150 | 321 | 185 |
-  | stud1000000 | 5162 | 9341 | 2423 | 4523 | 2704 |
-  | stud10000000 | 70411 | 88118 | 25885 | 48333 | 25787 |
+
+#### Vector
+| Failas | Skaitymo trukmė | Rūšiavimo trukmė | Skirstymo trukmė |
+| :--- | ---- | ---- | ---- |
+| stud1000 | 8 | 1 | 0 |
+| stud10000 | 78 | 11 | 3 |
+| stud100000 | 804 | 148 | 20 |
+| stud1000000 | 8063 | 1941 | 288 |
+| stud10000000 | 79864 | 24255 | 2373 |
+
+#### List
+| Failas | Skaitymo trukmė | Rūšiavimo trukmė | Skirstymo trukmė |
+| :--- | ---- | ---- | ---- |
+| stud1000 | 7 | 1 | 15 |
+| stud10000 | 79 | 10 | 1603 |
+| stud100000 | 527 | 795 | 150 |
+| stud1000000 | 5162 | 9341 | 2423 |
+| stud10000000 | 70411 | 88118 | 25885 |
+
+#### Deque
+| Failas | Skaitymo trukmė | Rūšiavimo trukmė | Skirstymo trukmė |
+| :--- | ---- | ---- | ---- |
+| stud1000 | 7 | 1 | 15 |
+| stud10000 | 79 | 10 | 1603 |
+| stud100000 | 527 | 795 | 150 |
+| stud1000000 | 5162 | 9341 | 2423 |
+| stud10000000 | 70411 | 88118 | 25885 |
+
