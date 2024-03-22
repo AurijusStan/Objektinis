@@ -64,7 +64,8 @@ void calc(duom &m){
     double egz=0;
     double med=0;
 
-    m.ndrez.sort();
+    // m.ndrez.sort();
+    sort(m.ndrez.begin(), m.ndrez.end());
 
     if(m.ndrez.size()!=0){
         sum=sum/(m.ndrez.size());
@@ -262,7 +263,7 @@ double isfailo(sk &moksk, talpa &mok){
 
     start = high_resolution_clock::now();
 
-    list<duom> pazenge;
+    deque<duom> pazenge;
 
     if(uzd4==true){
         skirstymas(mok, pazenge, x);
@@ -434,7 +435,7 @@ void kurtifaila(){
     cout<<"Failo kurimo laikas: "<<duration.count()<<endl;
 }
 
-void input(int &moksk, list<duom>& mok, double &duration){
+void input(int &moksk, deque<duom>& mok, double &duration){
 
     srand(time(nullptr));
 
