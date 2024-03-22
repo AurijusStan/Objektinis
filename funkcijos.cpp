@@ -43,22 +43,42 @@ void rusiuoti(sk &x, sk &t, talpa &mok){
     }
 }
 
+template <typename sk=int>
+void rusiuotilist(sk &x, sk &t, list<duom> &mok) {
+    if(t==1) {
+        if(x==1) mok.sort(sort1);
+        if(x==2) mok.sort(sort2);
+        if(x==3) mok.sort(sort3);
+        if(x==4) mok.sort(sort4);
+    } else {
+        if(x==1) mok.sort(sort1u);
+        if(x==2) mok.sort(sort2u);
+        if(x==3) mok.sort(sort3u);
+        if(x==4) mok.sort(sort4u);
+    }
+}
+
 void calc(duom &m){
     int a=accumulate(m.ndrez.begin(), m.ndrez.end(), 0);
     double sum=a;
     double egz=0;
     double med=0;
 
-    sort(m.ndrez.begin(), m.ndrez.end());
+    m.ndrez.sort();
 
     if(m.ndrez.size()!=0){
         sum=sum/(m.ndrez.size());
-        if((m.ndrez.size())%2==0){
-            med=m.ndrez[(m.ndrez.size()/2)-1]+m.ndrez[(m.ndrez.size()/2)];
-            med/=2;
-        }
+
+        auto it = m.ndrez.begin();
+        advance(it, m.ndrez.size()/2);
+
+        if (m.ndrez.size()%2==0){
+            auto it1 = it;
+            std::advance(it1, -1);
+            med = (*it + *it1) / 2.0;
+        } 
         else{
-            med=m.ndrez[((m.ndrez.size()+1)/2)-1];
+            med = *it;
         }
     }
     egz=m.egzrez;
@@ -69,26 +89,25 @@ void calc(duom &m){
 
 template <typename talpa, typename sk> 
 void skirstymas(talpa &x, talpa &y, sk t){
-    int k=x.size();
-    int tarp;
-    for(int i=0; i<k; i++){
-        if(t==3){
-            if(x[i].galvid>=5){
-                tarp=i;
-                break;
-            }
+    auto it=x.begin();
+    auto end=x.end();
+    auto tarp=end;
+
+    for(; it!=end; ++it){
+        if(t==3&&it->galvid>=5){
+            tarp=it;
+            break;
         }
-        if(t==4){
-            if(x[i].galmed>=5){
-                tarp=i;
-                break;
-            }
+        if(t==4 && it->galmed>=5){
+            tarp=it;
+            break;
         }
     }
-    for(int i=tarp; i<k; i++){
-        y.push_back(x[i]);
+
+    if(tarp!=end){
+        y.insert(y.end(), tarp, end);
+        x.erase(tarp, x.end());
     }
-    x.erase(x.begin()+tarp, x.end());
 }
 
 template <typename sk, typename talpa>
@@ -109,7 +128,7 @@ void skaitymas(sk &moksk, sk &ndsk, talpa &mok){
         }
     }    
 
-    mok.reserve(moksk);
+    // mok.reserve(moksk);
 
     for(int i=0; i<moksk; i++){
         duom m;
@@ -118,7 +137,7 @@ void skaitymas(sk &moksk, sk &ndsk, talpa &mok){
 
         cin>>m.vard>>m.pav;
 
-        m.ndrez.reserve(ndsk);
+        // m.ndrez.reserve(ndsk);
 
         for(int j=0; j<ndsk; j++){
             int a;
@@ -136,7 +155,8 @@ void skaitymas(sk &moksk, sk &ndsk, talpa &mok){
     }
 }
 
-double isfailo(int &moksk, vector<duom> &mok){
+template <typename talpa, typename sk>
+double isfailo(sk &moksk, talpa &mok){
     int ndsk=0;
 
     cout<<"Kiek asmenu nuskaityti nuo duoto failo?"<<endl;
@@ -228,7 +248,12 @@ double isfailo(int &moksk, vector<duom> &mok){
 
     start = high_resolution_clock::now();
 
-    rusiuoti(x, t, mok);
+    if constexpr (is_same<talpa, list<duom>>::value){
+        rusiuotilist(x, t, mok);
+    }
+    else{
+        rusiuoti(x, t, mok);
+    }
 
     stop = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stop - start);
@@ -237,7 +262,7 @@ double isfailo(int &moksk, vector<duom> &mok){
 
     start = high_resolution_clock::now();
 
-    vector<duom> pazenge;
+    list<duom> pazenge;
 
     if(uzd4==true){
         skirstymas(mok, pazenge, x);
@@ -268,14 +293,12 @@ double isfailo(int &moksk, vector<duom> &mok){
 
         cout<<"Egz."<<endl;
 
-        for(int i=0; i<pazenge.size(); i++){
-            cout<<setw(25)<<left<<pazenge[i].vard<<setw(25)<<left<<pazenge[i].pav;
-
-            for(int j=0; j<ndsk; j++){
-                cout<<setw(8)<<pazenge[i].ndrez[j];
+        for (const auto& elem : pazenge) {
+            cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
+            for (int j : elem.ndrez) {
+                cout<<std::setw(8)<<j;
             }
-
-            cout<<pazenge[i].egzrez<<endl;
+            cout<<elem.egzrez<<endl;
         }
 
         stop = high_resolution_clock::now();
@@ -305,14 +328,12 @@ double isfailo(int &moksk, vector<duom> &mok){
 
         cout<<"Egz."<<endl;
 
-        for(int i=0; i<mok.size(); i++){
-            cout<<setw(25)<<left<<mok[i].vard<<setw(25)<<left<<mok[i].pav;
-
-            for(int j=0; j<ndsk; j++){
-                cout<<setw(8)<<mok[i].ndrez[j];
+        for (const auto& elem : mok) {
+            cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
+            for (int j : elem.ndrez) {
+                cout<<std::setw(8)<<j;
             }
-
-            cout<<mok[i].egzrez<<endl;
+            cout<<elem.egzrez<<endl;
         }
 
         stop = high_resolution_clock::now();
@@ -413,7 +434,7 @@ void kurtifaila(){
     cout<<"Failo kurimo laikas: "<<duration.count()<<endl;
 }
 
-void input(int &moksk, vector<duom>& mok, double &duration){
+void input(int &moksk, list<duom>& mok, double &duration){
 
     srand(time(nullptr));
 

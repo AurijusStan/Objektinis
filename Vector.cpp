@@ -13,7 +13,7 @@ using std::setw;
 using std::left;
 
 int main(){    
-    vector<duom> mok;
+    list<duom> mok;
 
     double duration=0;
 
@@ -24,8 +24,8 @@ int main(){
     cout<<setw(19)<<left<<"Vardas"<<setw(19)<<left<<"Pavarde"<<setw(19)<<left<<"Galutinis (Vid.)"<<setw(19)<<left<<"Galutinis (Med.)"<<endl;
     cout<<"-------------------------------------------------------------------------"<<endl;
 
-    for(int i=0; i<moksk; i++){
-        cout<<setw(19)<<left<<mok[i].vard<<setw(19)<<left<<mok[i].pav<<setw(19)<<left<<setprecision(3)<<mok[i].galvid<<setw(19)<<left<<setprecision(3)<<mok[i].galmed<<endl;
+    for(const auto& elem : mok){
+        cout<<setw(19)<<left<<elem.vard<<setw(19)<<left<<elem.pav<<setw(19)<<left<<setprecision(3)<<elem.galvid<<setw(19)<<left<<setprecision(3)<<elem.galmed<<endl;
     }
 
     cout<<duration;

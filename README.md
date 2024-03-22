@@ -32,11 +32,11 @@
 #### List
 | Failas | Skaitymo trukmė | Rūšiavimo trukmė | Skirstymo trukmė |
 | :--- | ---- | ---- | ---- |
-| stud1000 | 7 | 1 | 15 |
-| stud10000 | 79 | 10 | 1603 |
-| stud100000 | 527 | 795 | 150 |
-| stud1000000 | 5162 | 9341 | 2423 |
-| stud10000000 | 70411 | 88118 | 25885 |
+| stud1000 | 14 | 0 | 1 |
+| stud10000 | 160 | 6 | 17 |
+| stud100000 | 1160 | 78 | 144 |
+| stud1000000 | 11753 | 1202 | 1570 |
+| stud10000000 | 120384 | 18116 | 40532 |
 
 #### Deque
 | Failas | Skaitymo trukmė | Rūšiavimo trukmė | Skirstymo trukmė |
