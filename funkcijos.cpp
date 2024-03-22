@@ -99,7 +99,7 @@ void skirstymas(talpa &x, talpa &y, sk t){
             tarp=it;
             break;
         }
-        if(t==4 && it->galmed>=5){
+        if(t==4&&it->galmed>=5){
             tarp=it;
             break;
         }
@@ -263,7 +263,7 @@ double isfailo(sk &moksk, talpa &mok){
 
     start = high_resolution_clock::now();
 
-    deque<duom> pazenge;
+    vector<duom> pazenge;
 
     if(uzd4==true){
         skirstymas(mok, pazenge, x);
@@ -435,7 +435,7 @@ void kurtifaila(){
     cout<<"Failo kurimo laikas: "<<duration.count()<<endl;
 }
 
-void input(int &moksk, deque<duom>& mok, double &duration){
+void input(int &moksk, vector<duom>& mok, double &duration){
 
     srand(time(nullptr));
 

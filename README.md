@@ -23,11 +23,11 @@
 #### Vector
 | Failas | Skaitymo trukmė | Rūšiavimo trukmė | Skirstymo trukmė |
 | :--- | ---- | ---- | ---- |
-| stud1000 | 8 | 1 | 0 |
-| stud10000 | 78 | 11 | 3 |
-| stud100000 | 804 | 148 | 20 |
-| stud1000000 | 8063 | 1941 | 288 |
-| stud10000000 | 79864 | 24255 | 2373 |
+| stud1000 | 11 | 0 | 1 |
+| stud10000 | 87 | 16 | 1 |
+| stud100000 | 907 | 147 | 25 |
+| stud1000000 | 8996 | 1911 | 292 |
+| stud10000000 | 90697 | 25683 | 2911 |
 
 #### List
 | Failas | Skaitymo trukmė | Rūšiavimo trukmė | Skirstymo trukmė |
