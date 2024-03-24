@@ -64,8 +64,8 @@ void calc(duom &m){
     double egz=0;
     double med=0;
 
-    m.ndrez.sort();
-    // sort(m.ndrez.begin(), m.ndrez.end());
+    // m.ndrez.sort();
+    sort(m.ndrez.begin(), m.ndrez.end());
 
     if(m.ndrez.size()!=0){
         sum=sum/(m.ndrez.size());
@@ -131,7 +131,7 @@ void skaitymas(sk &moksk, sk &ndsk, talpa &mok){
         }
     }    
 
-    // mok.reserve(moksk);
+    mok.reserve(moksk);
 
     for(int i=0; i<moksk; i++){
         duom m;
@@ -140,7 +140,7 @@ void skaitymas(sk &moksk, sk &ndsk, talpa &mok){
 
         cin>>m.vard>>m.pav;
 
-        // m.ndrez.reserve(ndsk);
+        m.ndrez.reserve(ndsk);
 
         for(int j=0; j<ndsk; j++){
             int a;
@@ -263,7 +263,7 @@ double isfailo(sk &moksk, talpa &mok){
 
     cout<<"Rusiavimo laikas: "<<duration.count()<<endl;
 
-    list<duom> pazenge;
+    vector<duom> pazenge;
 
     if(uzd4==true){
         start = high_resolution_clock::now();
@@ -439,7 +439,7 @@ void kurtifaila(){
     cout<<"Failo kurimo laikas: "<<duration.count()<<endl;
 }
 
-void input(int &moksk, list<duom>& mok, double &duration){
+void input(int &moksk, vector<duom>& mok, double &duration){
 
     srand(time(nullptr));
 

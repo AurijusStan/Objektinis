@@ -52,11 +52,11 @@
 #### Vector
 | Failas | 1 strategija | 2 strategija (originali) | 3 strategija |
 | :--- | ---- | ---- | ---- |
-| stud1000 | 0 | 1 |  |
-| stud10000 | 3 | 1 |  |
-| stud100000 | 28 | 25 |  |
-| stud1000000 | 372 | 292 |  |
-| stud10000000 | 5580 | 2911 |  |
+| stud1000 | 0 | 1 | 1 |
+| stud10000 | 3 | 1 | 6 |
+| stud100000 | 28 | 25 | 31 |
+| stud1000000 | 372 | 292 | 335 |
+| stud10000000 | 5580 | 2911 | 3398 |
 
 #### List
 | Failas | 1 strategija | 2 strategija (originali) | 3 strategija |
