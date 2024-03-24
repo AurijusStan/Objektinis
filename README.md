@@ -95,4 +95,8 @@ Buvo atliktas mokinių dalijimo į 2 konteinerius skirtingų strategijų testavi
 
 ## Kompiuterio paruošimas programai
 
+Čia gidas Windows sistemoms.
+- Atsisiųskite c++ kompiliatorių. Gidas čia: https://www.geeksforgeeks.org/installing-mingw-tools-for-c-c-and-changing-environment-variable/. 
+- Atsisiųskite make. Gidas čia: https://linuxhint.com/install-use-make-windows/.
+
 ## Programos diegimas ir paleidimas
