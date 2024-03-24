@@ -29,7 +29,7 @@ void rusiuoti(sk &, sk &, talpa &);
 void calc(duom &);
 
 template <typename talpa, typename sk> 
-void skirstymas(talpa &, talpa &, sk, talpa &);
+void skirstymas(talpa &, talpa &, sk);
 
 template <typename sk, typename talpa>
 void skaitymas(sk &, sk &, talpa &);
