@@ -58,15 +58,14 @@ void rusiuotilist(sk &x, sk &t, list<duom> &mok) {
     }
 }
 
-
 void calc(duom &m){
     int a=accumulate(m.ndrez.begin(), m.ndrez.end(), 0);
     double sum=a;
     double egz=0;
     double med=0;
 
-    m.ndrez.sort();
-    // sort(m.ndrez.begin(), m.ndrez.end());
+    // m.ndrez.sort();
+    sort(m.ndrez.begin(), m.ndrez.end());
 
     if(m.ndrez.size()!=0){
         sum=sum/(m.ndrez.size());
@@ -268,8 +267,8 @@ double isfailo(sk &moksk, talpa &mok){
 
         start = high_resolution_clock::now();
 
-        list<duom> pazenge;
-        list<duom> zluge;
+        deque<duom> pazenge;
+        deque<duom> zluge;
 
         skirstymas(mok, pazenge, x, zluge);
 
@@ -442,7 +441,7 @@ void kurtifaila(){
     cout<<"Failo kurimo laikas: "<<duration.count()<<endl;
 }
 
-void input(int &moksk, list<duom>& mok, double &duration){
+void input(int &moksk, deque<duom>& mok, double &duration){
 
     srand(time(nullptr));
 
