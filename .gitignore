@@ -1,11 +1,3 @@
-studentai10000.txt
-studentai100000.txt
-studentai1000000.txt
-Kursiokai.txt
-stud1000.txt
-zluge.txt
-pazenge.txt
-stud10000.txt
-stud100000.txt
-stud1000000.txt
-stud10000000.txt
+*.o
+*.exe
+*.txt
