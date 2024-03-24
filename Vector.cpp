@@ -13,7 +13,7 @@ using std::setw;
 using std::left;
 
 int main(){    
-    deque<duom> mok;
+    list<duom> mok;
 
     double duration=0;
 

@@ -61,11 +61,11 @@
 #### List
 | Failas | 1 strategija | 2 strategija (originali) | 3 strategija |
 | :--- | ---- | ---- | ---- |
-| stud1000 | 1 | 1 |  |
-| stud10000 | 20 | 17 |  |
-| stud100000 | 242 | 144 |  |
-| stud1000000 | 2628 | 1570 |  |
-| stud10000000 | 60549 | 40532 |  |
+| stud1000 | 1 | 1 | 1 |
+| stud10000 | 20 | 17 | 10 |
+| stud100000 | 242 | 144 | 149 |
+| stud1000000 | 2628 | 1570 | 1806 |
+| stud10000000 | 60549 | 40532 | 25499 |
 
 #### Deque
 | Failas | 1 strategija | 2 strategija (originali) | 3 strategija |

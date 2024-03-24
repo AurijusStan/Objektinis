@@ -9,7 +9,7 @@ using namespace std::chrono;
 struct duom{
     string vard;
     string pav;
-    deque<int> ndrez;
+    list<int> ndrez;
     int egzrez;
     double galvid, galmed;
 };
@@ -39,6 +39,6 @@ double isfailo(sk &, talpa &);
 
 void kurtifaila();
 
-void input(int &, deque<duom>&, double &);
+void input(int &, list<duom>&, double &);
 
 #endif 
