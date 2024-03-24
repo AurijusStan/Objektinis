@@ -100,3 +100,8 @@ Buvo atliktas mokinių dalijimo į 2 konteinerius skirtingų strategijų testavi
 - Atsisiųskite make. Gidas čia: https://linuxhint.com/install-use-make-windows/.
 
 ## Programos diegimas ir paleidimas
+
+1. Atsisiųskite programos kodą iš repozitorijos.
+2. Terminale pasiekite atsisiuntimo aplanką.
+3. terminale parašykite "make" (pirmą kartą, kai leidžiate programą).
+4. Paleiskite programą terminale įvesdami .\prog.exe (Windows) arba .\prog (Linux)
