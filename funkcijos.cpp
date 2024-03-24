@@ -64,8 +64,8 @@ void calc(duom &m){
     double egz=0;
     double med=0;
 
-    // m.ndrez.sort();
-    sort(m.ndrez.begin(), m.ndrez.end());
+    m.ndrez.sort();
+    // sort(m.ndrez.begin(), m.ndrez.end());
 
     if(m.ndrez.size()!=0){
         sum=sum/(m.ndrez.size());
@@ -89,8 +89,9 @@ void calc(duom &m){
 }
 
 template <typename talpa, typename sk> 
-void skirstymas(talpa &x, talpa &y, sk t){
+void skirstymas(talpa &x, talpa &y, sk t, talpa &z){
     auto it=x.begin();
+    auto begin=x.begin();
     auto end=x.end();
     auto tarp=end;
 
@@ -107,7 +108,8 @@ void skirstymas(talpa &x, talpa &y, sk t){
 
     if(tarp!=end){
         y.insert(y.end(), tarp, end);
-        x.erase(tarp, x.end());
+        z.insert(z.end(), begin, tarp);
+        x.erase(x.begin(), x.end());
     }
 }
 
@@ -261,92 +263,96 @@ double isfailo(sk &moksk, talpa &mok){
 
     cout<<"Rusiavimo laikas: "<<duration.count()<<endl;
 
-    start = high_resolution_clock::now();
-
-    vector<duom> pazenge;
-
     if(uzd4==true){
-        skirstymas(mok, pazenge, x);
-    }
 
-    stop = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(stop - start);
-
-    cout<<"Skirstymo laikas: "<<duration.count()<<endl;
-
-    if(uzd4==true){
         start = high_resolution_clock::now();
 
-        ifstream file("pazenge.txt");
+        list<duom> pazenge;
+        list<duom> zluge;
 
-        if(file.is_open()){
-            remove("pazenge.txt");
-        }
-        file.close();
-        freopen("pazenge.txt", "r", stdin);
-        freopen("pazenge.txt", "w", stdout);
-
-        cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
-    
-        for(int i=1; i<=ndsk; i++){
-            cout<<"ND"<<setw(6)<<left<<i;
-        }
-
-        cout<<"Egz."<<endl;
-
-        for (const auto& elem : pazenge) {
-            cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
-            for (int j : elem.ndrez) {
-                cout<<std::setw(8)<<j;
-            }
-            cout<<elem.egzrez<<endl;
-        }
+        skirstymas(mok, pazenge, x, zluge);
 
         stop = high_resolution_clock::now();
         duration = duration_cast<milliseconds>(stop - start);
 
-        freopen("CON", "r", stdin);
-        freopen("CON", "w", stdout);
-
-        // cout<<"Pazengusiu spausdinimo laikas: "<<duration.count()<<endl;
-
-        auto start = high_resolution_clock::now();
-
-        ifstream filez("zluge.txt");
-
-        if(filez.is_open()){
-            remove("zluge.txt");
-        }
-        filez.close();
-        freopen("zluge.txt", "r", stdin);
-        freopen("zluge.txt", "w", stdout);
-
-        cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
-    
-        for(int i=1; i<=ndsk; i++){
-            cout<<"ND"<<setw(6)<<left<<i;
-        }
-
-        cout<<"Egz."<<endl;
-
-        for (const auto& elem : mok) {
-            cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
-            for (int j : elem.ndrez) {
-                cout<<std::setw(8)<<j;
-            }
-            cout<<elem.egzrez<<endl;
-        }
-
-        stop = high_resolution_clock::now();
-        duration = duration_cast<milliseconds>(stop - start);
-
-        freopen("CON", "r", stdin);
-        freopen("CON", "w", stdout);
-
-        // cout<<"Zlugusiu spausdinimo laikas: "<<duration.count();
-
-        exit(0);
+        cout<<"Skirstymo laikas: "<<duration.count()<<endl;
     }
+
+    exit(0);
+
+    // if(uzd4==true){
+    //     start = high_resolution_clock::now();
+
+    //     ifstream file("pazenge.txt");
+
+    //     if(file.is_open()){
+    //         remove("pazenge.txt");
+    //     }
+    //     file.close();
+    //     freopen("pazenge.txt", "r", stdin);
+    //     freopen("pazenge.txt", "w", stdout);
+
+    //     cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
+    
+    //     for(int i=1; i<=ndsk; i++){
+    //         cout<<"ND"<<setw(6)<<left<<i;
+    //     }
+
+    //     cout<<"Egz."<<endl;
+
+    //     for (const auto& elem : pazenge) {
+    //         cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
+    //         for (int j : elem.ndrez) {
+    //             cout<<std::setw(8)<<j;
+    //         }
+    //         cout<<elem.egzrez<<endl;
+    //     }
+
+    //     stop = high_resolution_clock::now();
+    //     duration = duration_cast<milliseconds>(stop - start);
+
+    //     freopen("CON", "r", stdin);
+    //     freopen("CON", "w", stdout);
+
+    //     // cout<<"Pazengusiu spausdinimo laikas: "<<duration.count()<<endl;
+
+    //     auto start = high_resolution_clock::now();
+
+    //     ifstream filez("zluge.txt");
+
+    //     if(filez.is_open()){
+    //         remove("zluge.txt");
+    //     }
+    //     filez.close();
+    //     freopen("zluge.txt", "r", stdin);
+    //     freopen("zluge.txt", "w", stdout);
+
+    //     cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
+    
+    //     for(int i=1; i<=ndsk; i++){
+    //         cout<<"ND"<<setw(6)<<left<<i;
+    //     }
+
+    //     cout<<"Egz."<<endl;
+
+    //     for (const auto& elem : mok) {
+    //         cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
+    //         for (int j : elem.ndrez) {
+    //             cout<<std::setw(8)<<j;
+    //         }
+    //         cout<<elem.egzrez<<endl;
+    //     }
+
+    //     stop = high_resolution_clock::now();
+    //     duration = duration_cast<milliseconds>(stop - start);
+
+    //     freopen("CON", "r", stdin);
+    //     freopen("CON", "w", stdout);
+
+    //     // cout<<"Zlugusiu spausdinimo laikas: "<<duration.count();
+
+    //     exit(0);
+    // }
 
     return(duration.count());
 }
@@ -435,7 +441,7 @@ void kurtifaila(){
     cout<<"Failo kurimo laikas: "<<duration.count()<<endl;
 }
 
-void input(int &moksk, vector<duom>& mok, double &duration){
+void input(int &moksk, list<duom>& mok, double &duration){
 
     srand(time(nullptr));
 

@@ -47,3 +47,31 @@
 | stud1000000 | 9375 | 5177 | 937 |
 | stud10000000 | 96751 | 69256 | 61005 |
 
+## Skirstymas pagal skirtingas strategijas (3 testų vidurkis) ms
+
+#### Vector
+| Failas | 1 strategija | 2 strategija (originali) | 3 strategija |
+| :--- | ---- | ---- | ---- |
+| stud1000 | 0 | 1 |  |
+| stud10000 | 3 | 1 |  |
+| stud100000 | 28 | 25 |  |
+| stud1000000 | 372 | 292 |  |
+| stud10000000 | 5580 | 2911 |  |
+
+#### List
+| Failas | 1 strategija | 2 strategija (originali) | 3 strategija |
+| :--- | ---- | ---- | ---- |
+| stud1000 | 1 | 1 |  |
+| stud10000 | 20 | 17 |  |
+| stud100000 | 242 | 144 |  |
+| stud1000000 |  | 1570 |  |
+| stud10000000 |  | 40532 |  |
+
+#### Deque
+| Failas | 1 strategija | 2 strategija (originali) | 3 strategija |
+| :--- | ---- | ---- | ---- |
+| stud1000 |  | 1 |  |
+| stud10000 |  | 6 |  |
+| stud100000 |  | 71 |  |
+| stud1000000 |  | 937 |  |
+| stud10000000 |  | 61005 |  |
