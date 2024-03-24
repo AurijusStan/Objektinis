@@ -3,13 +3,17 @@
 
 ## Funkcionalumas
   - Meniu kuriame galima pasirinkti, ką atsitiktinai generuoti.
+  - Duomenų skaitymas iš išankstinio failo.
   - Duomenų įvedimas.
+  - Duomenų failo kūrimas. 
   - Galutinio balo skaičiavimas pagal vidurkį ir medianą.
   - Galima skaityti duomenis iš tam tikru formatu pateiktų teksto failų.
+  - "Pažengusių" ir "Žlugusių" mokinių išvedimas atskiruose failuose.
 
 ## Naudojimosi instrukcijos
   - Įjungti programą.
   - Sekti terminale matomus žingsnius.
+  - Jei prašome vesti failo pavadinimą, vesti be ".txt" pabaigoje.
   - Gauti rezultatus.
 
 ## Sistemos specifikacijos
@@ -75,3 +79,18 @@
 | stud100000 | 159 | 71 | 70 |
 | stud1000000 | 1698 | 937 | 884 |
 | stud10000000 | 102817 | 61005 | 52611 |
+
+## Release'ų istorija
+
+- V.pradinė: pirma prelimenati programa, kuri skaičiuoja ranka įvestus mokinio duomeis ir išveda galutinius rezultatus.
+- v0.1: nereikia iš anksto nustatyti duomenų kiekio, padarytas atsitiktinės generacijos funkcionalumas.
+- v0.2: programa gali duomenis priimti iš failo.
+- v0.3: programa paskirstyta per kelis failus, pridėtas išimčių valdymas.
+- v0.4: programoje galima generuoti naujus failus, duomenys atspausdinami į 2 atskirus failus, atliekama laiko analizė.
+- v1.0: atliktas programos testavimas su skirtingais konteineriais, naudotos skirtingos mokinių skirstymo strategijos, padarytos jų efektyvumo strategijos.
+
+## Tyrimas
+
+## Kompiuterio paruošimas programai
+
+## Programos diegimas ir paleidimas
