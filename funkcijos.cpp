@@ -58,6 +58,7 @@ void rusiuotilist(sk &x, sk &t, list<duom> &mok) {
     }
 }
 
+
 void calc(duom &m){
     int a=accumulate(m.ndrez.begin(), m.ndrez.end(), 0);
     double sum=a;
