@@ -276,81 +276,79 @@ double isfailo(sk &moksk, talpa &mok){
         cout<<"Skirstymo laikas: "<<duration.count()<<endl;
     }
 
-    exit(0);
+    if(uzd4==true){
+        start = high_resolution_clock::now();
 
-    // if(uzd4==true){
-    //     start = high_resolution_clock::now();
+        ifstream file("pazenge.txt");
 
-    //     ifstream file("pazenge.txt");
+        if(file.is_open()){
+            remove("pazenge.txt");
+        }
+        file.close();
+        freopen("pazenge.txt", "r", stdin);
+        freopen("pazenge.txt", "w", stdout);
 
-    //     if(file.is_open()){
-    //         remove("pazenge.txt");
-    //     }
-    //     file.close();
-    //     freopen("pazenge.txt", "r", stdin);
-    //     freopen("pazenge.txt", "w", stdout);
-
-    //     cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
+        cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
     
-    //     for(int i=1; i<=ndsk; i++){
-    //         cout<<"ND"<<setw(6)<<left<<i;
-    //     }
+        for(int i=1; i<=ndsk; i++){
+            cout<<"ND"<<setw(6)<<left<<i;
+        }
 
-    //     cout<<"Egz."<<endl;
+        cout<<"Egz."<<endl;
 
-    //     for (const auto& elem : pazenge) {
-    //         cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
-    //         for (int j : elem.ndrez) {
-    //             cout<<std::setw(8)<<j;
-    //         }
-    //         cout<<elem.egzrez<<endl;
-    //     }
+        for (const auto& elem : pazenge) {
+            cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
+            for (int j : elem.ndrez) {
+                cout<<std::setw(8)<<j;
+            }
+            cout<<elem.egzrez<<endl;
+        }
 
-    //     stop = high_resolution_clock::now();
-    //     duration = duration_cast<milliseconds>(stop - start);
+        stop = high_resolution_clock::now();
+        duration = duration_cast<milliseconds>(stop - start);
 
-    //     freopen("CON", "r", stdin);
-    //     freopen("CON", "w", stdout);
+        freopen("CON", "r", stdin);
+        freopen("CON", "w", stdout);
 
-    //     // cout<<"Pazengusiu spausdinimo laikas: "<<duration.count()<<endl;
+        cout<<"Pazengusiu spausdinimo laikas: "<<duration.count()<<endl;
 
-    //     auto start = high_resolution_clock::now();
+        auto start = high_resolution_clock::now();
 
-    //     ifstream filez("zluge.txt");
+        ifstream filez("zluge.txt");
 
-    //     if(filez.is_open()){
-    //         remove("zluge.txt");
-    //     }
-    //     filez.close();
-    //     freopen("zluge.txt", "r", stdin);
-    //     freopen("zluge.txt", "w", stdout);
+        if(filez.is_open()){
+            remove("zluge.txt");
+        }
+        filez.close();
+        freopen("zluge.txt", "r", stdin);
+        freopen("zluge.txt", "w", stdout);
 
-    //     cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
+        cout<<setw(25)<<left<<"Vardas"<<setw(25)<<left<<"Pavarde";
     
-    //     for(int i=1; i<=ndsk; i++){
-    //         cout<<"ND"<<setw(6)<<left<<i;
-    //     }
+        for(int i=1; i<=ndsk; i++){
+            cout<<"ND"<<setw(6)<<left<<i;
+        }
 
-    //     cout<<"Egz."<<endl;
+        cout<<"Egz."<<endl;
 
-    //     for (const auto& elem : mok) {
-    //         cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
-    //         for (int j : elem.ndrez) {
-    //             cout<<std::setw(8)<<j;
-    //         }
-    //         cout<<elem.egzrez<<endl;
-    //     }
+        for (const auto& elem : mok) {
+            cout<<setw(25)<<left<<elem.vard<<setw(25)<<left<<elem.pav;
+            for (int j : elem.ndrez) {
+                cout<<std::setw(8)<<j;
+            }
+            cout<<elem.egzrez<<endl;
+        }
 
-    //     stop = high_resolution_clock::now();
-    //     duration = duration_cast<milliseconds>(stop - start);
+        stop = high_resolution_clock::now();
+        duration = duration_cast<milliseconds>(stop - start);
 
-    //     freopen("CON", "r", stdin);
-    //     freopen("CON", "w", stdout);
+        freopen("CON", "r", stdin);
+        freopen("CON", "w", stdout);
 
-    //     // cout<<"Zlugusiu spausdinimo laikas: "<<duration.count();
+        cout<<"Zlugusiu spausdinimo laikas: "<<duration.count();
 
-    //     exit(0);
-    // }
+        exit(0);
+    }
 
     return(duration.count());
 }
